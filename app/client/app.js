@@ -12,18 +12,21 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
-
-const Container = containers['home']
-
-// export default 
 class App extends Component {
+
   render() {
+    const moduleNames = Object.keys(containers).filter((n)=>n !== 'nav');
+    const routes = moduleNames.map((moduleName, i)=>{
+      return (
+        <Route key={i} path={moduleName} component={containers[moduleName]}/>
+      );
+    });
     return (
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={containers['nav']}>
-            <IndexRedirect to="/home" />
-            <Route path="home" component={containers['home']}/>
+            <IndexRedirect to="/login" />
+            {routes}
           </Route>
         </Router>
       </Provider>

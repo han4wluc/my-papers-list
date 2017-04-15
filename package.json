@@ -10,11 +10,14 @@
   },
   "author": "",
   "dependencies": {
+    "axios": "^0.16.0",
     "babel-polyfill": "^6.13.0",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "http-proxy": "^1.13.2",
     "jsdom": "^9.0.0",
+    "leancloud-storage": "^2.1.4",
     "radium": "^0.17.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
@@ -24,9 +27,11 @@
     "react-router-redux": "^4.0.7",
     "redux": "^3.3.1",
     "redux-thunk": "^2.1.0",
-    "request": "^2.69.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0",
     "rx": "^4.0.8",
-    "webpack": "^1.13.2"
+    "webpack": "^1.13.2",
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
     "babel-core": "^6.5.2",

@@ -13,6 +13,10 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+import routes from './routes';
+routes(app);
+// require('./routes')(app);
+
 app.get('*', function(req, res){
   console.log('GET /');
   res.status(200).send(
