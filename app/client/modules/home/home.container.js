@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react';
 import * as homeActions from './home.action';
-
 import { Utils, Comps, } from '../../';
+import { browserHistory } from 'react-router';
 
 const { Setup } = Utils;
 const { Cell } = Comps;
@@ -20,6 +20,9 @@ class HomeContainer extends Component {
         <Cell
           key={index}
           {...paper}
+          onClickDetail={function(){
+            browserHistory.push('/detail')
+          }}
         />
       );
     });
@@ -41,20 +44,16 @@ class HomeContainer extends Component {
     return (
       <div>
         <div className="container">
-
           <div className="input-group">
-            <span className="input-group-addon" id="basic-addon1">@</span>
-            <input ref={'search'} onChange={this.inputOnChange.bind(this)} type="text" className="form-control" placeholder="Username" aria-describedby="basic-addon1"></input>
+            <span className="input-group-addon" id="basic-addon1">🔍</span>
+            <input ref={'search'} onChange={this.inputOnChange.bind(this)} type="text" className="form-control" placeholder="Search Keyword" aria-describedby="basic-addon1"></input>
             <button onClick={this.submitOnClick.bind(this,{searchPapers})} type="submit" className="btn btn-primary">Search</button>
           </div>
-
           <br/>
-
           <div className="row">
             {this.renderPapers(papers)}
           </div>
         </div>
-
       </div>
     );
   }

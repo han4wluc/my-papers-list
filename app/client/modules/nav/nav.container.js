@@ -5,22 +5,48 @@ import { Utils, } from '../../';
 
 const { Setup, AV } = Utils;
 
-// import { Link } from 'react-router';
 import { Link, browserHistory } from 'react-router';
-        // <Link to="/home">{'Home'}</Link>
 
 class NavContainer extends Component {
+
+  logout(){
+    AV.User.logOut();
+    browserHistory.push('/home');
+  }
+
+  renderButton(){
+    return (
+      <Link to="/login">
+        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+      </Link>
+    );
+  }
+
+  renderUsername({username}){
+    return (
+      <div style={{color:'white'}}>
+        {username}
+        <button onClick={this.logout.bind(this)} className="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+      </div>
+    );
+  }
+
   render(){
 
-    console.log('AV', AV);
-
+    const user = AV.User.current();
+    let userComp = this.renderButton();
+    if(user){
+      userComp = this.renderUsername({username:user.getUsername()});
+    }
     return (
       <div>
         <nav className="navbar navbar-toggleable-md navbar-inverse bg-inverse">
           <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <a className="navbar-brand" href="#">Fixed navbar</a>
+          <Link to="/home">
+            <a className="navbar-brand" href="#">Fixed navbar</a>
+          </Link>
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
@@ -33,10 +59,7 @@ class NavContainer extends Component {
                 {/*<a className="nav-link" href="/read">Read</a>*/}
               </li>
             </ul>
-            <form className="form-inline mt-2 mt-md-0">
-              <input className="form-control mr-sm-2" type="text" placeholder="Search"></input>
-              <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            { userComp }
           </div>
         </nav>
         <br/>

@@ -12,7 +12,6 @@ class LoginContainer extends Component {
   login(){
     const username = this.refs.username.value;
     const password = this.refs.password.value;
-    console.log({username,password});
     const { login } = this.props.actions;
     login({username,password});
   }

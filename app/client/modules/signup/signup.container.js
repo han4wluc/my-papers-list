@@ -12,7 +12,6 @@ class SignupContainer extends Component {
     const username = this.refs.username.value;
     const email = this.refs.email.value;
     const password = this.refs.password.value;
-    console.log({username,email,password});
     const { signup } = this.props.actions;
     signup({username,email,password});
   }
