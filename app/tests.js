@@ -4,4 +4,6 @@ require('babel-core/register')({
 });
 require('babel-polyfill');
 
-require('./client/modules/home/utils/tests');
+// require('./client/modules/home/utils/tests');
+// require('./server/api/tests/parse');
+require('./server/api/tests/integration');
