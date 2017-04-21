@@ -322,6 +322,7 @@ describe('POST /', function(){
   it('should return with code 201', async function(){
 
     const { status, data } = await axs.post('/note', {
+      _id: '56cb91bdc3464f14678934ca',
       title: 'new_title'
     });
     status.should.equal(201);
@@ -330,7 +331,11 @@ describe('POST /', function(){
     // console.log({data2,});
     data2.length.should.equal(1);
     // Object.keys(data2[0]).should.deep.equal(['_id', '__v', 'title']);
-    data2[0].title.should.equal('new_title');
+    // data2[0]._id.should.
+    const data3 = data2.map(d=>JSON.parse(JSON.stringify(d)));
+    console.log({data3})
+    data3[0]._id.should.equal('56cb91bdc3464f14678934ca');
+    data3[0].title.should.equal('new_title');
     // data2.should.deep.equal(expected);
 
   });
