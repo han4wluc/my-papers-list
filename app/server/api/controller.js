@@ -17,6 +17,7 @@ export default class Rest {
     router.get('/', this._findAll.bind(this));
     router.get('/:id', this._findOne.bind(this));
     router.post('/', this._create.bind(this));
+    router.put('/', this._updateOne.bind(this));
     router.put('/:id', this._update.bind(this));
     router.delete('/:id', this._remove.bind(this));
 
@@ -109,6 +110,19 @@ export default class Rest {
     //   return this._handleError({result, res});
     // }
     // res.status(201).send(result);
+  }
+
+  async _updateOne(req, res) {
+    try {
+      const result = await DAO.updateOne({
+        model: this.model,
+        body: req.body.body,
+        query: req.body.query,
+      });
+      res.status(200).send(result);
+    } catch (error) {
+      res.status(500).send(error);
+    }
   }
 
   async _update(req, res) {

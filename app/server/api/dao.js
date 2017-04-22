@@ -7,10 +7,10 @@ import Parse from './parse';
 const { isValid } =  mongoose.Types.ObjectId;
 
 
-const findAll = async function(params){
-  const {
-    model, query: originalQuery
-  } = params;
+const findAll = async function({model, query: originalQuery}){
+  // const {
+  //   model, query: originalQuery
+  // } = params;
   // console.log({originalQuery})
 
   const query = Parse.parseQuery(originalQuery);
@@ -39,10 +39,10 @@ const findAll = async function(params){
   }
 };
 
-const findOne = async function(params){
-  const {
-    model, id, query: originalQuery
-  } = params;
+const findOne = async function({model, id, query: originalQuery}){
+  // const {
+  //   model, id, query: originalQuery
+  // } = params;
 
   const query = Parse.parseQuery(originalQuery);
   const { select } = query;
@@ -73,11 +73,7 @@ const findOne = async function(params){
   // }
 };
 
-const create = async function(params){
-  const {
-    model,
-    body,
-  } = params;
+const create = async function({model, body}){
   // todo limit parameters
   return model.create(body);
   // try {
@@ -92,12 +88,20 @@ const create = async function(params){
   // }
 };
 
-const update = async function(params){
-  const {
-    id,
-    body,
-    model,
-  } = params;
+const updateOne = async function({query, body, model}){
+  if(Object.keys(query).length === 0 || Object.keys(body).length === 0){
+    throw new Error(404);
+  }
+  return model.findOneAndUpdate(query, {
+    '$set': body,
+  }, {
+    new: true,
+    upsert: true,
+  });
+};
+
+const update = async function({id, body, model}){
+
 
   if(!isValid(id)){
     return { };
@@ -138,11 +142,11 @@ const update = async function(params){
   // }
 };
 
-const remove = async function(params){
-  const {
-    model,
-    id,
-  } = params;
+const remove = async function({model, id}){
+  // const {
+  //   model,
+  //   id,
+  // } = params;
 
   if(!isValid(id)){
     return { deleted: false };
@@ -180,6 +184,7 @@ export default {
   findAll,
   findOne,
   create,
+  updateOne,
   update,
   remove,
 };

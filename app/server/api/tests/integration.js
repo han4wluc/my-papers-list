@@ -86,7 +86,7 @@ before(function(done) {
 
 import axios from 'axios';
 const axs = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'http://localhost:8081',
   timeout: 1000,
   // headers: {'X-Custom-Header': 'foobar'}
 });
@@ -328,17 +328,124 @@ describe('POST /', function(){
     status.should.equal(201);
 
     const data2 = await Note.find().exec();
-    // console.log({data2,});
     data2.length.should.equal(1);
-    // Object.keys(data2[0]).should.deep.equal(['_id', '__v', 'title']);
-    // data2[0]._id.should.
     const data3 = data2.map(d=>JSON.parse(JSON.stringify(d)));
-    console.log({data3})
     data3[0]._id.should.equal('56cb91bdc3464f14678934ca');
     data3[0].title.should.equal('new_title');
-    // data2.should.deep.equal(expected);
 
   });
+});
+
+describe('PUT /', function(){
+
+  it('should return with code 500', async function(done){
+
+    try {
+      const { status, data } = await axs.put('/note', {
+        query: {},
+        body: { title: 'hello' },
+      });
+      done(new Error('Error'));
+    } catch (error){
+      error.response.status.should.equal(500);
+      done();
+    }
+
+  });
+
+  it('should return with code 500', async function(done){
+
+    try {
+      const { status, data } = await axs.put('/note', {
+        query: { title: 'hello' },
+        body: {},
+      });
+      done(new Error('Error'));
+    } catch (error){
+      error.response.status.should.equal(500);
+      done();
+    }
+
+  });
+
+  it('should return with code 200', async function(){
+
+    const expected = [{
+      _id: '56cb91bdc3464f14678934ca',
+      __v: 0,
+      title: 'data1',
+      text: 'text1'
+    }, {
+      _id: '56cb91bdc3464f14678934cb',
+      __v: 0,
+      title: 'data2',
+      text: 'text2'
+    }, {
+      _id: '56cb91bdc3464f14678934cc',
+      __v: 0,
+      title: 'wallo',
+    }];
+
+    await Note.insertMany(genData());
+
+    const { status, data } = await axs.put('/note', {
+      query: { title: 'nonexisting' },
+      body: { _id:'56cb91bdc3464f14678934cc', title: 'wallo' },
+    });
+
+    status.should.equal(200);
+    data.should.deep.equal(expected[2]);
+
+    const data2 = await Note.find().exec();
+    JSON.parse(JSON.stringify(data2)).should.deep.equal(expected);
+
+  });
+
+  it('should return with code 200', async function(){
+
+    const expected = [{
+      _id: '56cb91bdc3464f14678934ca',
+      __v: 0,
+      title: 'data1',
+      text: 'text1'
+    }, {
+      _id: '56cb91bdc3464f14678934cb',
+      __v: 0,
+      title: 'new_title',
+      text: 'text2'
+    }];
+
+    await Note.insertMany(genData());
+
+    const { status, data } = await axs.put('/note', {
+      query: { title: 'data2' },
+      body: { title: 'new_title' },
+    });
+
+    status.should.equal(200);
+    data.should.deep.equal(expected[1]);
+
+    const data2 = await Note.find().exec();
+    JSON.parse(JSON.stringify(data2)).should.deep.equal(expected);
+
+
+  });
+
+  // it('should return with code 500', async function(done){
+
+  //   try {
+  //     const { status, data } = await axs.put('/note', {
+  //       query: { title: 'hello' },
+  //       body: {},
+  //     });
+  //     done(new Error('Error'));
+  //   } catch (error){
+  //     console.log({error});
+  //     error.response.status.should.equal(500);
+  //     done();
+  //   }
+
+  // });
 });
 
 describe('PUT /id', function(){
