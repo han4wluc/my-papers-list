@@ -51,7 +51,7 @@ class App extends Component {
             <IndexRedirect to="/login" />
             {/*routes*/}
             <Route path={'home'} component={containers['home']}/>
-            <Route path={'detail'} component={containers['detail']} onEnter={loginRequired}/>
+            <Route path={'detail/:id'} component={containers['detail']} onEnter={loginRequired}/>
             <Route path={'read'} component={containers['read']}/>
             <Route path={'signup'} component={containers['signup']}/>
             <Route path={'login'} component={containers['login']} onEnter={alreadyLoggedIn}/>

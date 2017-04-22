@@ -14,6 +14,10 @@ class NavContainer extends Component {
     browserHistory.push('/home');
   }
 
+  collapseNav(){
+    $('#navbarCollapse').removeClass('show');
+  }
+
   renderButton(){
     return (
       <Link to="/login">
@@ -45,17 +49,17 @@ class NavContainer extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <Link to="/home">
-            <a className="navbar-brand" href="#">Fixed navbar</a>
+            <a className="navbar-brand" href="#">MyPapersList</a>
           </Link>
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <Link to="/home">{'Home'}</Link>
+                <Link onClick={this.collapseNav} to="/home">{'Home'}</Link>
                 {/*<a className="nav-link" href="/home">Home <span className="sr-only">(current)</span></a>*/}
               </li>
 
               <li className="nav-item">
-                <Link to="/read">{'Read'}</Link>
+                <Link onClick={this.collapseNav} to="/read">{'Read'}</Link>
                 {/*<a className="nav-link" href="/read">Read</a>*/}
               </li>
             </ul>

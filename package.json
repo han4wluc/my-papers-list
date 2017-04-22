@@ -1,5 +1,5 @@
 {
-  "name": "h6r1",
+  "name": "MyPapersList",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -28,6 +28,7 @@
     "react-redux-form": "^0.12.1",
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.7",
+    "redis": "^2.7.1",
     "redux": "^3.3.1",
     "redux-thunk": "^2.1.0",
     "request": "^2.81.0",

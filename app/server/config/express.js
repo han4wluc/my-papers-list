@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // dev only
-app.all('/', function(req, res, next) {
+app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
@@ -26,11 +26,18 @@ routes(app);
 require('./mongoose');
 import Rest from '../api/controller';
 import User from '../model/User';
+import Paper from '../model/Paper';
 
 new Rest({
   model: User,
   app,
   routeName: '/user',
+});
+
+new Rest({
+  model: Paper,
+  app,
+  routeName: '/paper',
 });
 
 

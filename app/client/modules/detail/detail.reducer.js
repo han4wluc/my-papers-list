@@ -1,7 +1,11 @@
 
 const initialState = {
-  title: 'Generative',
-  abstract: 'summary summary'
+  isLoading: true,
+  paper: {
+    title: 'Generative',
+    abstract: 'summary summary',
+  }
+
 };
 
 export default function moduleName(state = initialState, action = {}){

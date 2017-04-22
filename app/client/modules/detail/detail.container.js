@@ -6,19 +6,28 @@ import { Utils, } from '../../';
 const { Setup } = Utils;
 
 class DetailContainer extends Component {
+
+  componentDidMount() {
+    const { id } = this.props.params;
+    this.props.actions.getPaper(id);
+  }
+
   render(){
+    const isLoading = this.props.state.isLoading;
+    if(isLoading){
+      return( <div> {'loading'} </div>);
+    }
 
-    const { title, abstract } = this.props.state;
-
+    const { title, abstract, pdfLink } = this.props.state.paper;
     return (
       <div className="container">
-        <div>
+        <h2>
           {title}
-        </div>
+        </h2>
         <div>
           {abstract}
         </div>
-        <a target="_blank" href="https://arxiv.org/abs/1205.3915v1">
+        <a target="_blank" href={pdfLink}>
           <button type="submit" className="btn btn-primary">Download</button>
         </a>
       </div>
