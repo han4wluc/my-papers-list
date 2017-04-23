@@ -16,7 +16,10 @@ app.use(bodyParser.urlencoded({
 // dev only
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  // res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   next();
 });
 
@@ -27,6 +30,7 @@ require('./mongoose');
 import Rest from '../api/controller';
 import User from '../model/User';
 import Paper from '../model/Paper';
+import Read from '../model/Read';
 
 new Rest({
   model: User,
@@ -38,6 +42,12 @@ new Rest({
   model: Paper,
   app,
   routeName: '/paper',
+});
+
+new Rest({
+  model: Read,
+  app,
+  routeName: '/read',
 });
 
 

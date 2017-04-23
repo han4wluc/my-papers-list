@@ -14,18 +14,31 @@ const findAll = async function({model, query: originalQuery}){
   // console.log({originalQuery})
 
   const query = Parse.parseQuery(originalQuery);
-
-  const { find, limit, select, sort, skip } = query;
+  // console.log({query})
+  const { find, limit, select, sort, skip, populate } = query;
   // console.log('select', select);
   try {
-    const rows =
-      await model
+
+    var m = model
         .find(find)
         .limit(limit)
         .select(select)
         .sort(sort)
-        .skip(skip)
-        .exec();
+        .skip(skip);
+    for (var i in populate) {
+      m = m.populate(populate[i]);
+    }
+
+    const rows = await m.exec();
+
+    // const rows =
+    //   await model
+    //     .find(find)
+    //     .limit(limit)
+    //     .select(select)
+    //     .sort(sort)
+    //     .skip(skip)
+    //     .exec();
     // return {
     //   query, rows
     // };

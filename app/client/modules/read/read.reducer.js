@@ -1,12 +1,7 @@
 
 const initialState = {
-  papers: [{
-    title: 'Hello',
-    summary: 'abstract abstract'
-  },{
-    title: 'Title',
-    summary: 'abstract abstract'
-  }],
+  papers: [],
+  isLoading: true,
 };
 
 export default function moduleName(state = initialState, action = {}){

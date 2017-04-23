@@ -8,7 +8,18 @@ const { Cell } = Comps;
 
 class ReadContainer extends Component {
 
-  renderPapers({papers}){
+  componentDidMount() {
+    this.props.actions.getPapers({});
+  }
+
+  renderPapers({papers,isLoading}){
+
+    if(isLoading){
+      return (
+        <div>{'loading'}</div>
+      )
+    }
+
     return papers.map((paper,index)=>{
       return (
         <Cell
@@ -20,7 +31,8 @@ class ReadContainer extends Component {
   }
 
   render(){
-    const { papers } = this.props.state;
+    const { papers, isLoading } = this.props.state;
+
     return (
       <div className="container">
         <div className="btn-group" data-toggle="buttons">
@@ -35,7 +47,7 @@ class ReadContainer extends Component {
           </label>
         </div>
         <div>
-          {this.renderPapers({papers})}
+          {this.renderPapers({papers,isLoading})}
         </div>
       </div>
     );

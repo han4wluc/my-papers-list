@@ -4,8 +4,8 @@ const initialState = {
   paper: {
     title: 'Generative',
     abstract: 'summary summary',
-  }
-
+  },
+  readStatus: 'not_read',
 };
 
 export default function moduleName(state = initialState, action = {}){

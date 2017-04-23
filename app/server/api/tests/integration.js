@@ -2,10 +2,6 @@
 import chai from'chai';
 const should = chai.should();
 import request from 'supertest';
-// import mongoose from 'mongoose';
-// import {Mockgoose} from 'mockgoose';
-// var mockgoose = new Mockgoose(mongoose);
-// console.log(mockgoose)
 
 import startApp from './express';
 
@@ -20,6 +16,7 @@ mongoose.Promise = require('bluebird');
 let app;
 
 var Note;
+var Article;
 
 before(function(done) {
   mockgoose.prepareStorage().then(function() {
@@ -39,47 +36,34 @@ before(function(done) {
         );
         Note = mongoose.model('Note', NoteSchema);
 
+        var ArticleSchema = new Schema({
+          note: {
+            type: Schema.Types.ObjectId,
+            ref: 'Note',
+          },
+          note2: {
+            type: Schema.Types.ObjectId,
+            ref: 'Note',
+          }
+        });
+        Article = mongoose.model('Article', ArticleSchema);
+
+
         new Rest({
           model: Note,
           app,
           routeName: '/note',
         });
 
+        new Rest({
+          model: Article,
+          app,
+          routeName: '/article',
+        });
 
-        console.log('open2');
         done(err);
-        // MongooseSeed.connect('mongodb://example.com/TestingDB').then(() => {
-        //     console.log('open3')
-        //     MongooseSeed.loadModels('./model');
-        //     MongooseSeed.clearAll().then(() => {
-        //         console.log('open3')
-        //         MongooseSeed.populate('./data/data.json').then(() => {
-        //             // process.exit();
-        //             console.log('open4')
-        //              done(err);
-        //         });
-        //     });
-        // });
-
-        // seeder.connect('mongodb://example.com/TestingDB').then(()=>{
-        //   console.log('open3');
-        //   seeder.loadModels([
-        //     './model/Thing.js',
-        //   ]);
-        //   // seeder.clearModels(['Note'], function() {
-        //   //   // Callback to populate DB once collections have been cleared
-        //   //   seeder.populateModels(data, function() {
-        //   //     //seeder.disconnect();
-        //   //     done(err);
-
-        //   //   });
-        //   // });
-        // })
       });
     });
-    // mongoose.connection.on('connected', () => {  
-    //   console.log('db connection is now open');
-    // }); 
   });
 });
 
@@ -105,6 +89,14 @@ const genData = function(){
     _id: new mongoose.Types.ObjectId('56cb91bdc3464f14678934cb'),
     title: 'data2',
     text: 'text2'
+  }];
+};
+
+const genData2 = function(){
+  return [{
+    _id: new mongoose.Types.ObjectId('58fc1f0313586c77fd73bea4'),
+    note: new mongoose.Types.ObjectId('56cb91bdc3464f14678934ca'),
+    note2: new mongoose.Types.ObjectId('56cb91bdc3464f14678934cb'),
   }];
 };
 
@@ -284,6 +276,101 @@ describe('GET /', function(){
 
   });
 
+  it('should test populate', async function(){
+
+    const expected = [{
+      _id: '58fc1f0313586c77fd73bea4',
+      __v: 0,
+      note: {
+        _id: '56cb91bdc3464f14678934ca',
+        __v: 0,
+        title: 'data1',
+        text: 'text1'
+      },
+      note2: '56cb91bdc3464f14678934cb',
+    }];
+
+    await Note.insertMany(genData());
+    await Article.insertMany(genData2());
+
+    const { status, data } = await axs.get('/article', {
+      params: {
+        populate: ['note']
+      }
+    });
+
+    status.should.equal(200);
+    data.should.deep.equal(expected);
+
+  });
+
+  it('should test populate', async function(){
+
+    const expected = [{
+      _id: '58fc1f0313586c77fd73bea4',
+      __v: 0,
+      note: {
+        _id: '56cb91bdc3464f14678934ca',
+        __v: 0,
+        title: 'data1',
+        text: 'text1'
+      },
+      note2: '56cb91bdc3464f14678934cb',
+    }];
+
+    await Note.insertMany(genData());
+    await Article.insertMany(genData2());
+
+    const { status, data } = await axs.get('/article', {
+      params: {
+        populate: [{
+          path: 'note'
+        }]
+      }
+    });
+
+    status.should.equal(200);
+    data.should.deep.equal(expected);
+
+  });
+
+  it('should test populate multi', async function(){
+
+    const expected = [{
+      _id: '58fc1f0313586c77fd73bea4',
+      __v: 0,
+      note: {
+        _id: '56cb91bdc3464f14678934ca',
+        __v: 0,
+        title: 'data1',
+        text: 'text1'
+      },
+      note2: {
+        _id: '56cb91bdc3464f14678934cb',
+        __v: 0,
+        title: 'data2',
+        text: 'text2',
+      }
+    }];
+
+    await Note.insertMany(genData());
+    await Article.insertMany(genData2());
+
+    const { status, data } = await axs.get('/article', {
+      params: {
+        populate: [{
+          path: 'note'
+        }, {
+          path: 'note2'
+        }]
+      }
+    });
+
+    status.should.equal(200);
+    data.should.deep.equal(expected);
+
+  });
+
 });
 
 
@@ -431,21 +518,6 @@ describe('PUT /', function(){
 
   });
 
-  // it('should return with code 500', async function(done){
-
-  //   try {
-  //     const { status, data } = await axs.put('/note', {
-  //       query: { title: 'hello' },
-  //       body: {},
-  //     });
-  //     done(new Error('Error'));
-  //   } catch (error){
-  //     console.log({error});
-  //     error.response.status.should.equal(500);
-  //     done();
-  //   }
-
-  // });
 });
 
 describe('PUT /id', function(){

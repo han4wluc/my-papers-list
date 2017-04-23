@@ -10,6 +10,8 @@ var PaperSchema = new Schema({
   published: Date,
   updated: Date,
   pdfLink: String,
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model('Paper', PaperSchema);

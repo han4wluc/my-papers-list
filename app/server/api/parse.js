@@ -22,6 +22,26 @@ const parseFind = function(find){
   // };
 };
 
+// array
+const parsePopulate = function(populate){
+  if(_.isArray(populate)){
+    return populate.map((p)=>{
+      try {
+        return JSON.parse(p);
+      } catch (error){
+        return p;
+      }
+    });
+  }
+  var populate2;
+  try {
+    populate2 = JSON.parse(populate);
+  } catch (error) {
+    populate2 = [];
+  }
+  return populate2;
+};
+
 const parseLimit = function(limit){
   if(limit === undefined){
     return 100;
@@ -83,16 +103,14 @@ const parseSort = function(sort){
 };
 
 const parseQuery = function(query = {}){
-  // console.log('query1', query)
-  // console.log('query.find', query.find);
-  const find   = parseFind(query.find);
-  // console.log('find1', find);
-  const limit  = parseLimit(query.limit);
-  const select = parseSelect(query.select);
-  const sort   = parseSort(query.sort);
-  const skip   = parseSkip(query.skip);
+  const find     = parseFind(query.find);
+  const limit    = parseLimit(query.limit);
+  const select   = parseSelect(query.select);
+  const sort     = parseSort(query.sort);
+  const skip     = parseSkip(query.skip);
+  const populate = parsePopulate(query.populate);
   return {
-    find, limit, select, sort, skip,
+    find, limit, select, sort, skip, populate
   };
 };
 
@@ -101,5 +119,6 @@ export default {
   parseLimit,
   parseSelect,
   parseSort,
+  parsePopulate,
   parseQuery,
 };
