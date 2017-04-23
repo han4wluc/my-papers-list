@@ -1,6 +1,7 @@
 
 const initialState = {
   read: [],
+  readStatus: undefined,
   isLoading: true,
 };
 

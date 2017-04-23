@@ -1,11 +1,11 @@
 
 const initialState = {
-  isLoading: true,
+  isLoading: false,
   paper: {
     title: 'Generative',
     abstract: 'summary summary',
   },
-  readStatus: 'not_read',
+  readStatus: undefined,
 };
 
 export default function moduleName(state = initialState, action = {}){

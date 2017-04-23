@@ -9,23 +9,23 @@ export function getRead({status}) {
 
   return async function(dispatch, getState){
     try {
+      dispatch({
+        type: 'READ_SET_STATE',
+        props: {
+          isLoading: true,
+          readStatus: status,
+        }
+      });
       const response = await axios.get('http://47.52.57.206:8000/read', {
         params: {
-          query: {
-            userId,
+          find: {
+            user: userId,
+            status,
           },
           populate: ['paper']
         }
       });
-      console.log(response.data);
       const read = response.data;
-      // const read = response.data.map((d)=>{
-      //   return {
-      //     ...d,
-      //     paper: d.paperId,
-      //   };
-      // });
-      // console.log({read})
       dispatch({
         type: 'READ_SET_STATE',
         props: {

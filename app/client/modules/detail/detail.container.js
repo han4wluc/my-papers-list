@@ -29,7 +29,7 @@ class DetailContainer extends Component {
         <label onClick={()=>{
           onClickStatusButton({paperId,status:'not_read'});
         }} className={notReadBtnStatus}>
-          <input type="radio" name="options" id="option1" autoComplete="off"> {'Not Read2'}</input>
+          <input type="radio" name="options" id="option1" autoComplete="off"> {'Not Read'}</input>
         </label>
         <label onClick={()=>{
           onClickStatusButton({paperId,status:'read'});
@@ -57,18 +57,20 @@ class DetailContainer extends Component {
     const { onClickStatusButton } = this.props.actions;
     return (
       <div className="container">
-        <h2>
-          {title}
-        </h2>
-        <div>
-          {abstract}
-        </div>
-        <a target="_blank" href={pdfLink}>
-          <button type="submit" className="btn btn-primary">Download</button>
-        </a>
-
-        { this.renderStatuses({paperId,readStatus,onClickStatusButton}) }
-
+          <h2>
+            {title}
+          </h2>
+          <div>
+            {abstract}
+          </div>
+          <div className="col-xs-12" style={{marginTop:'28px'}}>
+            <a target="_blank" href={pdfLink}>
+              <button type="submit" className="btn btn-primary">Download PDF</button>
+            </a>
+          </div>
+          <div className="col-xs-12" style={{marginTop:'28px'}}>
+            { this.renderStatuses({paperId,readStatus,onClickStatusButton}) }
+          </div>
       </div>
     );
   }

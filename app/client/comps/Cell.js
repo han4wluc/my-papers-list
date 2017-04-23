@@ -14,7 +14,7 @@ export default class Cell extends Component {
     const { abstract, title, onClickDetail } = this.props;
 
     return (
-      <div className="col-md-12">
+      <div className="col-md-12" style={{marginTop:'18px'}}>
         <h2>{title}</h2>
         <p>{abstract}</p>
         <button onClick={onClickDetail} className="btn btn-secondary" role="button">View details &raquo;</button>

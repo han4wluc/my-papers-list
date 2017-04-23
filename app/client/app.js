@@ -48,7 +48,7 @@ class App extends Component {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={containers['nav']}>
-            <IndexRedirect to="/read" />
+            <IndexRedirect to="/home" />
             {/*routes*/}
             <Route path={'home'} component={containers['home']}/>
             <Route path={'detail/:id'} component={containers['detail']} onEnter={loginRequired}/>
