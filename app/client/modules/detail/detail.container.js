@@ -12,6 +12,12 @@ class DetailContainer extends Component {
     this.props.actions.getPaper(id);
   }
 
+  componentWillUnmount(){
+    this.props.dispatch({
+      type: 'DETAIL_RESET_TO_INITIAL_STATE',
+    });
+  }
+
   renderStatuses({paperId,readStatus,onClickStatusButton}){
 
     const notReadBtnStatus = readStatus === 'not_read' ? 'btn btn-primary' : 'btn btn-secondary';

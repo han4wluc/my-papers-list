@@ -2,17 +2,17 @@
 import React, { Component } from 'react';
 import * as readActions from './read.action';
 import { Utils, Comps, } from '../../';
-
+import { browserHistory } from 'react-router';
 const { Setup } = Utils;
 const { Cell } = Comps;
 
 class ReadContainer extends Component {
 
   componentDidMount() {
-    this.props.actions.getPapers({});
+    this.props.actions.getRead({});
   }
 
-  renderPapers({papers,isLoading}){
+  renderRead({read,isLoading}){
 
     if(isLoading){
       return (
@@ -20,18 +20,21 @@ class ReadContainer extends Component {
       )
     }
 
-    return papers.map((paper,index)=>{
+    return read.map((read, index)=>{
       return (
         <Cell
           key={index}
-          {...paper}
+          {...read.paper}
+          onClickDetail={function(){
+            browserHistory.push('/detail/' + read.paper._id);
+          }}
         />
       );
     });
   }
 
   render(){
-    const { papers, isLoading } = this.props.state;
+    const { read, isLoading } = this.props.state;
 
     return (
       <div className="container">
@@ -47,7 +50,7 @@ class ReadContainer extends Component {
           </label>
         </div>
         <div>
-          {this.renderPapers({papers,isLoading})}
+          {this.renderRead({read,isLoading})}
         </div>
       </div>
     );

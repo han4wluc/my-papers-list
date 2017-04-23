@@ -1,6 +1,6 @@
 
 const initialState = {
-  papers: [],
+  read: [],
   isLoading: true,
 };
 
