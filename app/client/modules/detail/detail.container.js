@@ -2,12 +2,14 @@
 import React, { Component } from 'react';
 import * as detailActions from './detail.action';
 import { Utils, } from '../../';
+const { AV } = Utils;
 
 const { Setup } = Utils;
 
 class DetailContainer extends Component {
 
   componentDidMount() {
+    console.log('didMount')
     const { id } = this.props.params;
     this.props.actions.getPaper(id);
   }
@@ -19,6 +21,10 @@ class DetailContainer extends Component {
   }
 
   renderStatuses({paperId,readStatus,onClickStatusButton}){
+
+    if(!AV.User.current()){
+      return;
+    }
 
     const notReadBtnStatus = readStatus === 'not_read' ? 'btn btn-primary' : 'btn btn-secondary';
     const readBtnStatus = readStatus === 'read' ? 'btn btn-primary' : 'btn btn-secondary';
@@ -57,20 +63,20 @@ class DetailContainer extends Component {
     const { onClickStatusButton } = this.props.actions;
     return (
       <div className="container">
-          <h2>
-            {title}
-          </h2>
-          <div>
-            {abstract}
-          </div>
-          <div className="col-xs-12" style={{marginTop:'28px'}}>
-            <a target="_blank" href={pdfLink}>
-              <button type="submit" className="btn btn-primary">Download PDF</button>
-            </a>
-          </div>
-          <div className="col-xs-12" style={{marginTop:'28px'}}>
-            { this.renderStatuses({paperId,readStatus,onClickStatusButton}) }
-          </div>
+        <h2>
+          {title}
+        </h2>
+        <div>
+          {abstract}
+        </div>
+        <div className="col-xs-12" style={{marginTop:'28px'}}>
+          <a target="_blank" href={pdfLink}>
+            <button type="submit" className="btn btn-primary">Download PDF</button>
+          </a>
+        </div>
+        <div className="col-xs-12" style={{marginTop:'28px'}}>
+          { this.renderStatuses({paperId,readStatus,onClickStatusButton}) }
+        </div>
       </div>
     );
   }

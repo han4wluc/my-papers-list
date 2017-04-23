@@ -2,8 +2,8 @@
 const initialState = {
   isLoading: false,
   paper: {
-    title: 'Generative',
-    abstract: 'summary summary',
+    title: undefined,
+    abstract: undefined,
   },
   readStatus: undefined,
 };

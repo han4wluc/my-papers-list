@@ -21,6 +21,7 @@ class HomeContainer extends Component {
           key={index}
           {...paper}
           onClickDetail={function(){
+            console.log('push')
             browserHistory.push('/detail/' + paper._id);
           }}
         />

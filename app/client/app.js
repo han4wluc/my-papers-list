@@ -18,8 +18,9 @@ const history = syncHistoryWithStore(browserHistory, store);
 const loginRequired = function(nextState, replace, callback) {
   const user = AV.User.current();
   if(!user){
+    console.log('replace')
     replace({
-      pathname: '/home',
+      pathname: '/login',
     });
   }
   callback();
@@ -51,8 +52,8 @@ class App extends Component {
             <IndexRedirect to="/home" />
             {/*routes*/}
             <Route path={'home'} component={containers['home']}/>
-            <Route path={'detail/:id'} component={containers['detail']} onEnter={loginRequired}/>
-            <Route path={'read'} component={containers['read']}/>
+            <Route path={'detail/:id'} component={containers['detail']} />
+            <Route path={'read'} component={containers['read']} onEnter={loginRequired}/>
             <Route path={'signup'} component={containers['signup']}/>
             <Route path={'login'} component={containers['login']} onEnter={alreadyLoggedIn}/>
           </Route>
