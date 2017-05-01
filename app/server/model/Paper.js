@@ -3,13 +3,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PaperSchema = new Schema({
-  id: String,
+  arxivId: String,
+  ver: Number,
+  abs: String,
+  pdf: String,
   title: String,
-  abstract: String,
+  summary: String,
   authors: [String],
   published: Date,
   updated: Date,
-  pdfLink: String,
+  categories: [String]
 }, {
   timestamps: true
 });

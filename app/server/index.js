@@ -4,4 +4,5 @@ require('babel-register')({
 });
 require('babel-polyfill');
 
-require('./config/express');
+// require('./config/express');
+require('./utils/searchArxiv');
