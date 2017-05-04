@@ -12,7 +12,13 @@ var PaperSchema = new Schema({
   authors: [String],
   published: Date,
   updated: Date,
-  categories: [String]
+  categories: [String],
+  pdfInfo: {
+    text: String,
+    pages: Number,
+    ver: Number, // paper ver when the pdf was downloaded
+    toolVer: Number, // version of the pdf tool
+  }
 }, {
   timestamps: true
 });

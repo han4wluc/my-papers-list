@@ -1,8 +1,8 @@
 
-import search from '../api/search';
+// import search from '../api/search';
 
 export default function(app){
 
-  app.get('/search/:query', search);
+  // app.get('/search/:query', search);
 
 }
