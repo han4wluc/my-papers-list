@@ -22,7 +22,7 @@ class SignupContainer extends Component {
 
         <h2> {'Signup'} </h2>
 
-        <div className="form-inline">
+        <div className="form">
 
           <input ref={"username"} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Username"/>
 
@@ -32,12 +32,17 @@ class SignupContainer extends Component {
 
           <input ref={"password"} type="password" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Password"/>
 
-          <div className="row">
+          <br/>
+          <div className="row">            
             <div className="col-md-12">
               <Link to="/login">
-                <div>{'Login'}</div>
+                <div>{'Click here to login if you already got an account'}</div>
               </Link>
             </div>
+          </div>
+          <br/>
+
+          <div className="row">
             <div className="col-md-12">
               <button onClick={this.signup.bind(this)} type="submit" className="btn btn-primary">{'Signup'}</button>
              </div>

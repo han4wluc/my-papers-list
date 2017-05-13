@@ -1,6 +1,6 @@
 
 import { Utils, } from '../../';
-const { AV } = Utils;
+const { AV, } = Utils;
 import { browserHistory } from 'react-router';
 
 export function signup({username, email, password}) {

@@ -1,7 +1,7 @@
 
-import axios from 'axios';
+// import axios from 'axios';
 import { Utils, } from '../../';
-const { AV } = Utils;
+const { AV, axios } = Utils;
 
 export function getRead({status}) {
   const user = AV.User.current();
@@ -16,7 +16,7 @@ export function getRead({status}) {
           readStatus: status,
         }
       });
-      const response = await axios.get('http://47.52.57.206:8000/read', {
+      const response = await axios.get('read', {
         params: {
           find: {
             user: userId,

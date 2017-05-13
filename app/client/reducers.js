@@ -5,6 +5,7 @@ import detail from './modules/detail/detail.reducer';
 import read from './modules/read/read.reducer';
 import login from './modules/login/login.reducer';
 import signup from './modules/signup/signup.reducer';
+import profile from './modules/profile/profile.reducer';
 /**YEOMAN_HOOK_1**/
 
 export {
@@ -14,5 +15,6 @@ export {
   read,
   login,
   signup,
+  profile,
   /**YEOMAN_HOOK_2**/
 };

@@ -30,23 +30,30 @@ class DetailContainer extends Component {
     const readBtnStatus = readStatus === 'read' ? 'btn btn-primary' : 'btn btn-secondary';
     const planToReadBtnStatus = readStatus === 'plan_to_read' ? 'btn btn-primary' : 'btn btn-secondary';
 
+    var statusText = 'Not Read    ';
+    if(readStatus === 'read'){
+      statusText = 'Read     ';
+    }
+    if(readStatus === 'plan_to_read'){
+      statusText = 'Plan to Read';
+    }
+
     return (
-      <div className="btn-group" data-toggle="buttons">
-        <label onClick={()=>{
-          onClickStatusButton({paperId,status:'not_read'});
-        }} className={notReadBtnStatus}>
-          <input type="radio" name="options" id="option1" autoComplete="off"> {'Not Read'}</input>
-        </label>
-        <label onClick={()=>{
-          onClickStatusButton({paperId,status:'read'});
-        }} className={readBtnStatus}>
-          <input type="radio" name="options" id="option2" autoComplete="off"> {'Read'}</input>
-        </label>
-        <label onClick={()=>{
-          onClickStatusButton({paperId,status:'plan_to_read'});
-        }} className={planToReadBtnStatus}>
-          <input type="radio" name="options" id="option3" autoComplete="off"> {'Plan to Read'}</input>
-        </label>
+      <div className="dropdown">
+        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {statusText}
+        </button>
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div onClick={()=>{
+            onClickStatusButton({paperId,status:'not_read'});
+          }} className="dropdown-item btn-danger" href="#">{'Not Read'}</div>
+          <div onClick={()=>{
+            onClickStatusButton({paperId,status:'read'});
+          }} className="dropdown-item" href="#">{'Read'}</div>
+          <div onClick={()=>{
+            onClickStatusButton({paperId,status:'plan_to_read'});
+          }} className="dropdown-item" href="#">{'Plan to Read'}</div>
+        </div>
       </div>
     );
 
@@ -58,24 +65,27 @@ class DetailContainer extends Component {
       return( <div> {'loading'} </div>);
     }
 
-    const { title, abstract, pdfLink } = this.props.state.paper;
+    const { title, summary, pdf, authors = [] } = this.props.state.paper;
     const { id:paperId } = this.props.params;
     const { onClickStatusButton } = this.props.actions;
     return (
       <div className="container">
-        <h2>
-          {title}
-        </h2>
+        <div style={{display:'flex',flex:1,}}>
+          <h2>
+            {title}
+          </h2>
+          <div>
+            { this.renderStatuses({paperId,readStatus,onClickStatusButton}) }
+          </div>
+        </div>
+        <p><b>{authors.join(', ')}</b></p>
         <div>
-          {abstract}
+          {summary}
         </div>
         <div className="col-xs-12" style={{marginTop:'28px'}}>
-          <a target="_blank" href={pdfLink}>
+          <a target="_blank" href={pdf}>
             <button type="submit" className="btn btn-primary">Download PDF</button>
           </a>
-        </div>
-        <div className="col-xs-12" style={{marginTop:'28px'}}>
-          { this.renderStatuses({paperId,readStatus,onClickStatusButton}) }
         </div>
       </div>
     );

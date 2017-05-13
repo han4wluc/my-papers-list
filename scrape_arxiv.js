@@ -66,81 +66,31 @@ const main = async function(){
   let start_;
   console.log('start fetching, cat: ' + cat);
 
+  try {
+    start_ = start + (i * max_results);
+    console.log(`start: ${start_} end: ${start_ + max_results}`);
 
-  // var fs = require('fs');
-  // const p1 = await doc.getPage(1);
-  // const content = await p1.getTextContent();
-  // const res = content.items.map(function (item) {
-  //   return item.str;
-  // });
-  // console.log(res);
+    const papers = await arxiv.fetchArxiv({
+      start: start_,
+      max_results: max_results,
+      cat: cat
+    });
 
-  // console.log(content);
+    console.log('arxiv fetched, n of papers:', papers.length);
 
-
-  // await downloadPdf('http://arxiv.org/pdf/quant-ph/9802028v1', './hello.pdf');
-  // console.log('done')
-
-  // var pdftotext = require('pdftotextjs'),
-      // pdf = new pdftotext('./hello.pdf');
-
-  // var data = pdf.getTextSync();
-  // console.log(data.toString('utf8'));
-  // fs.writeFileSync('./hello.txt', data, 'binary');
-
-  // const stream = fs.createWriteStream('./hello.pdf');
-  // stream.on('finish', function(){
-  //   console.log('end');
-  // });
-  // request({
-  //   method: 'GET',
-  //   url: 'http://arxiv.org/pdf/quant-ph/9802028v1',
-  //   headers: {
-  //     'User-Agent': 'request'
-  //   },
-  // }).pipe(stream);
-  // const { data } = await axios.get('https://arxiv.org/pdf/quant-ph/9802028v1');
-
-
-  // var writeStream = fs.createWriteStream('./hello.pdf');
-  // writeStream.write(data);
-  // writeStream.end();
-  // console.log('done');
-
-  // console.log(Object.keys(res));
-  // fs.writeFileSync('./hello2.pdf', new Buffer(data));
-  // console.log('done');
-
-  for (var i = 0; i < 10; i++){
-
-    try {
-      start_ = start + (i * max_results);
-      console.log(`start: ${start_} end: ${start_ + max_results}`);
-
-      const papers = await arxiv.fetchArxiv({
-        start: start_,
-        max_results: max_results,
-        cat: cat
-      });
-
-      console.log('arxiv fetched, n of papers:', papers.length);
-
-      if(papers.length === 0){
-        console.log('done, no more data from arxiv');
-        break;
-      }
-
-      // const texts = await proccessPdf(papers);
-      // console.log('texts', texts);
-      const { nAdded, total } = await arxiv.importPapers(papers);
-
-      console.log(`updated: ${nAdded}/${total}`);
-    } catch (error){
-      console.log('error', error);
-      break;
+    if(papers.length === 0){
+      console.log('done, no more data from arxiv');
     }
 
+    // const texts = await proccessPdf(papers);
+    // console.log('texts', texts);
+    const { nAdded, total } = await arxiv.importPapers(papers);
+
+    console.log(`updated: ${nAdded}/${total}`);
+  } catch (error){
+    console.error('error', error);
   }
+
 
 };
 

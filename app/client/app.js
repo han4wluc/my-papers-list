@@ -49,13 +49,15 @@ class App extends Component {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={containers['nav']}>
-            <IndexRedirect to="/home" />
+            <IndexRedirect to="/signup" />
+            {/*<IndexRedirect to="/detail/59071ee2e0450550d1170cf9" />*/}
             {/*routes*/}
             <Route path={'home'} component={containers['home']}/>
             <Route path={'detail/:id'} component={containers['detail']} />
             <Route path={'read'} component={containers['read']} onEnter={loginRequired}/>
             <Route path={'signup'} component={containers['signup']}/>
             <Route path={'login'} component={containers['login']} onEnter={alreadyLoggedIn}/>
+            <Route path={'profile'} component={containers['profile']} onEnter={loginRequired}/>
           </Route>
         </Router>
       </Provider>

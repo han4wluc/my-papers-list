@@ -1,6 +1,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
 
 var PaperSchema = new Schema({
   arxivId: String,
@@ -18,7 +19,8 @@ var PaperSchema = new Schema({
     pages: Number,
     ver: Number, // paper ver when the pdf was downloaded
     toolVer: Number, // version of the pdf tool
-  }
+  },
+  // paperText : ObjectId,
 }, {
   timestamps: true
 });

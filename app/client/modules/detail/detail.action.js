@@ -1,12 +1,11 @@
 
-import axios from 'axios';
 import { Utils, } from '../../';
-const { AV } = Utils;
+const { AV, axios } = Utils;
 
 export function getPaper(id) {
   return async function(dispatch, getState){
     try {
-      const response = await axios.get('http://47.52.57.206:8000/paper/' + id);
+      const response = await axios.get('/paper/' + id);
       const paper = response.data;
       dispatch({
         type: 'DETAIL_SET_STATE',
@@ -23,7 +22,7 @@ export function getPaper(id) {
       }
       const userId = user.id;
       const paperId = id;
-      const response2 = await axios.get('http://47.52.57.206:8000/read', {
+      const response2 = await axios.get('/read', {
         params: {
           find: {
             user: userId,
@@ -56,7 +55,7 @@ export function onClickStatusButton({status,paperId}){
   const userId = user.id;
   return async function(dispatch, getState){
     try {
-      const response = await axios.put('http://47.52.57.206:8000/read', {
+      const response = await axios.put('/read', {
         query: {
           user: userId,
           paper: paperId,

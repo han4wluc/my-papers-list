@@ -16,31 +16,43 @@ class NavContainer extends Component {
 
   collapseNav(){
     $('#navbarCollapse').removeClass('show');
+    browserHistory.push('/login');
   }
 
   renderButton(){
     return (
-      <Link to="/login">
-        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
-      </Link>
-    );
-  }
-
-  renderUsername({username}){
-    return (
-      <div style={{color:'white'}}>
-        {username}
-        <button onClick={this.logout.bind(this)} className="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+      <div className="mt-2 mt-md-0">
+        <li className={'mr-sm-2 nav-item'}>
+          <button onClick={this.collapseNav} className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+        </li>
       </div>
     );
   }
 
+  renderUsername({username, pathname}){
+
+    const active = pathname === '/profile' ? true : false;
+    const color = active ? 'white' : '#ccc';
+
+    return (
+      <div className="form-inline mt-2 mt-md-0">
+        <Link style={{color:color}} onClick={this.collapseNav} >{username}</Link>
+        <li className={'mr-sm-2 nav-item'}>
+          <button onClick={this.logout} className="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+        </li>
+      </div>
+    );
+
+  }
+
   render(){
+
+    const pathname = this.props.location.pathname;
 
     const user = AV.User.current();
     let userComp = this.renderButton();
     if(user){
-      userComp = this.renderUsername({username:user.getUsername()});
+      userComp = this.renderUsername({username:user.getUsername(),pathname});
     }
     return (
       <div>
@@ -49,17 +61,17 @@ class NavContainer extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <Link to="/home">
-            <a className="navbar-brand" href="#">MyPapersList</a>
+            <a className="navbar-brand" href="#">MyPaperList</a>
           </Link>
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link onClick={this.collapseNav} to="/home">{'Home'}</Link>
+              <li className={'nav-item' + (pathname === '/home' ? ' active' : '')}>
+                <Link className="nav-link" onClick={this.collapseNav} to="/home">{'Home'}</Link>
                 {/*<a className="nav-link" href="/home">Home <span className="sr-only">(current)</span></a>*/}
               </li>
 
-              <li className="nav-item">
-                <Link onClick={this.collapseNav} to="/read">{'Read'}</Link>
+              <li className={'nav-item' + (pathname === '/read' ? ' active' : '')}>
+                <Link className="nav-link" onClick={this.collapseNav} to="/read">{'Read'}</Link>
                 {/*<a className="nav-link" href="/read">Read</a>*/}
               </li>
             </ul>
@@ -67,7 +79,23 @@ class NavContainer extends Component {
           </div>
         </nav>
         <br/>
-        {this.props.children}
+        <div style={{minHeight:'600px'}}>
+          {this.props.children}
+        </div>
+        <hr/>
+
+        <footer className="bd-footer text-muted">
+          <div className="container">
+            {/*<div className="bd-footer-links" style={{display:'flex',flex:1,flexDirection:'rows',marginBottom:'12px'}}>
+              <div style={{marginRight:'16px'}}><a href="https://github.com/twbs/bootstrap">GitHub</a></div>
+              <div style={{marginRight:'16px'}}><a href="https://twitter.com/getbootstrap">Twitter</a></div>
+              <div style={{marginRight:'16px'}}><a href="/examples/">Examples</a></div>
+              <div><a href="/about/history/">About</a></div>
+            </div>
+            <p>Designed and built with all the love in the world by <a href="https://twitter.com/mdo" target="_blank">@mdo</a> </p>
+            */}<p> MyPaperList </p>
+          </div>
+        </footer>
       </div>
     );
   }
