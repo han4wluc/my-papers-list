@@ -13,7 +13,17 @@ import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 const history = syncHistoryWithStore(browserHistory, store);
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
+history.listen((location)=>{
+  store.dispatch({
+    type: 'NAV_SET_STATE',
+    props: {
+      errorMessage: null,
+    }
+  });
+  store.dispatch(hideLoading());
+});
 
 const loginRequired = function(nextState, replace, callback) {
   const user = AV.User.current();
@@ -49,7 +59,7 @@ class App extends Component {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={containers['nav']}>
-            <IndexRedirect to="/signup" />
+            <IndexRedirect to="/home" />
             {/*<IndexRedirect to="/detail/59071ee2e0450550d1170cf9" />*/}
             {/*routes*/}
             <Route path={'home'} component={containers['home']}/>

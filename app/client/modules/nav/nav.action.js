@@ -1,6 +1,9 @@
 
-export function addCounter() {
+export function dismissError() {
   return {
-    type: 'ADD_COUNTER'
+    type: 'NAV_SET_STATE',
+    props: {
+      errorMessage: null,
+    }
   };
 }

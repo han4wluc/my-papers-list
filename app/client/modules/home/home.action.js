@@ -3,9 +3,13 @@
 import { Utils, } from '../../';
 const { axios } = Utils;
 
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
+
 export function searchPapers(keyword) {
-  return async function(dispatch, getState){
+  return async function(dispatch, getState, sss){
+    console.log('sss', sss)
     try {
+      dispatch(showLoading());
       const regex = new RegExp(keyword,'i');
       const response = await axios.get('paper', {
         params: {
@@ -62,6 +66,15 @@ export function searchPapers(keyword) {
       });
     } catch (error){
       console.log(error);
+
+      dispatch({
+        type: 'NAV_SET_STATE',
+        props: {
+          errorMessage: 'Netowrk error, please retry',
+        }
+      });
+    } finally {
+      dispatch(hideLoading());
     }
   };
 }

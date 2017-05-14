@@ -1,6 +1,6 @@
 
 const initialState = {
-  // 
+  errorMessage: null,
 };
 
 export default function moduleName(state = initialState, action = {}){
