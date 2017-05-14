@@ -15,7 +15,6 @@ var ArgumentParser = require('argparse').ArgumentParser;
 import _ from 'lodash';
 
 
-// var ArgumentParser = require('../lib/argparse').ArgumentParser;
 var parser = new ArgumentParser({
   version: '0.0.1',
   addHelp:true,
@@ -52,38 +51,25 @@ if(isNaN(start) || isNaN(max_results) || !cat){
 
 import axios from 'axios';
 import fs from 'fs';
-var pdftotext = require('pdftotextjs');
-
-
-import 'pdfjs-dist';
-
-
-
-
 
 const main = async function(){
 
-  let start_;
-  console.log('start fetching, cat: ' + cat);
 
   try {
-    start_ = start + (i * max_results);
-    console.log(`start: ${start_} end: ${start_ + max_results}`);
+    console.log(`fetch arxiv. cat: ${cat}, start: ${start}, end: ${start + max_results}`);
 
-    const papers = await arxiv.fetchArxiv({
-      start: start_,
+    const { papers, totalResults } = await arxiv.fetchArxiv({
+      start: start,
       max_results: max_results,
       cat: cat
     });
 
-    console.log('arxiv fetched, n of papers:', papers.length);
+    console.log(`arxiv fetched, n of papers: ${papers.length}, total results: ${totalResults}`);
 
     if(papers.length === 0){
       console.log('done, no more data from arxiv');
     }
 
-    // const texts = await proccessPdf(papers);
-    // console.log('texts', texts);
     const { nAdded, total } = await arxiv.importPapers(papers);
 
     console.log(`updated: ${nAdded}/${total}`);
@@ -94,14 +80,14 @@ const main = async function(){
 
 };
 
-// main();
+main();
 
-const main2 = async function(){
-  await arxiv.populatePdfs();
-  console.log('done');
-};
+// const main2 = async function(){
+//   await arxiv.populatePdfs();
+//   console.log('done');
+// };
 
-main2();
+// main2();
 
 
 // const arrays = [

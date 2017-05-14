@@ -39,6 +39,7 @@
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
     "rx": "^4.0.8",
+    "shelljs": "^0.7.7",
     "supertest": "^3.0.0",
     "webpack": "^1.13.2",
     "xml2js": "^0.4.17"

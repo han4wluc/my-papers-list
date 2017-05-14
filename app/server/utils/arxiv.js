@@ -78,10 +78,29 @@ const fetchArxiv = async function({start = 0, max_results = 10, cat}){
       },
       timeout: 30000,
     });
-    console.log('end fetchArxiv');
+
+    const resData = await xmlParseString(data);
+    // console.log(JSON.stringify(resData, null, 2));
+    const totalResults = parseInt(resData.feed['opensearch:totalResults'][0]._,10);
+    if(start >= totalResults){
+      // console.log('no more entries. start >= totalResults');
+      return {
+        totalResults,
+        papers: [],
+      };
+    }
+
     const entries = xml2entries(data);
+    if(!entries){
+      throw new Error('Unexpected Error, entries was null: \n' + data);
+    }
+
+    if(Math.random() > 0.4){
+      throw new Error('Random Error ');
+    }
+
     const papers = await Promise.all(entries.map(entryToPaper));
-    return papers;
+    return { papers, totalResults };
   } catch (error){
     // console.log(error);
     throw error;
@@ -107,7 +126,9 @@ const requestPapers = async function(paper){
     params: {
       find: {
         arxivId: paper.arxivId,
-        ver: paper.ver,
+        ver: {
+          $gte: paper.ver,
+        }
       },
       limit: 1,
     }

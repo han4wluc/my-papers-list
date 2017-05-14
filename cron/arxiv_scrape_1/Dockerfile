@@ -1,7 +1,7 @@
 FROM node:latest
 
 # RUN apt-get update && apt-get -y install wget ca-certificates s3cmd cron rsyslog
-RUN apt-get update && apt-get -y install cron
+RUN apt-get update && apt-get -y install cron rsyslog
 
 # Add crontab file in the cron directory
 ADD crontab /etc/cron.d/crontab
