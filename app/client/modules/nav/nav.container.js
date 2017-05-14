@@ -108,7 +108,10 @@ class NavContainer extends Component {
           backgroundColor: '#292b2c',
           height: '3px',
         }}>
-          <LoadingBar style={{ backgroundColor: '#0275d8', height: '3px' }} />
+          <LoadingBar
+            style={{ backgroundColor: '#0275d8', height: '3px' }}
+            updateTime={10} maxProgress={90} progressIncrease={5}
+          />
         </div>        
         <br/>
 

@@ -14,7 +14,40 @@ class HomeContainer extends Component {
     this.search = '';
   }
 
-  renderPapers(papers){
+  renderPapers({papers,searched}){
+
+    if(papers.length === 0){
+
+      if(!searched){
+        return (
+          <div className="col-md-12" style={{
+            // backgroundColor:'red',
+            marginTop: '28px',
+            display: 'flex',
+            flex: 1,
+            justifyContent: 'center'
+          }}>
+            <p>
+              {'Search from thousands of academic papers'}
+            </p>
+          </div>
+        );
+      }
+      return (
+        <div className="col-md-12" style={{
+          // backgroundColor:'red',
+          marginTop: '28px',
+          display: 'flex',
+          flex: 1,
+          justifyContent: 'center'
+        }}>
+          <p>
+            {'No papers found :('}
+          </p>
+        </div>
+      );
+    }
+
     return papers.map((paper,index)=>{
       return (
         <Cell
@@ -37,9 +70,15 @@ class HomeContainer extends Component {
     searchPapers(this.search);
   }
 
+  onKeyPress({searchPapers}, e){
+    if(e.charCode === 13){
+      searchPapers(this.search);
+    }
+  }
+
   render(){
 
-    const { papers } = this.props.state;
+    const { papers, searched } = this.props.state;
     const { searchPapers } = this.props.actions;
 
     return (
@@ -47,12 +86,12 @@ class HomeContainer extends Component {
         <div className="container">
           <div className="input-group">
             <span className="input-group-addon" id="basic-addon1">🔍</span>
-            <input ref={'search'} onChange={this.inputOnChange.bind(this)} type="text" className="form-control" placeholder="Search Keyword" aria-describedby="basic-addon1"></input>
+            <input onKeyPress={this.onKeyPress.bind(this, {searchPapers})} ref={'search'} onChange={this.inputOnChange.bind(this)} type="text" className="form-control" placeholder="Search Keyword" aria-describedby="basic-addon1"></input>
             <button onClick={this.submitOnClick.bind(this,{searchPapers})} type="submit" className="btn btn-primary">Search</button>
           </div>
           <br/>
           <div className="row">
-            {this.renderPapers(papers)}
+            {this.renderPapers({papers,searched})}
           </div>
         </div>
       </div>

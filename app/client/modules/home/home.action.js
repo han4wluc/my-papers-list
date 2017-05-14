@@ -6,8 +6,7 @@ const { axios } = Utils;
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 export function searchPapers(keyword) {
-  return async function(dispatch, getState, sss){
-    console.log('sss', sss)
+  return async function(dispatch, getState){
     try {
       dispatch(showLoading());
       const regex = new RegExp(keyword,'i');
@@ -62,6 +61,7 @@ export function searchPapers(keyword) {
         type: 'HOME_SET_STATE',
         props: {
           papers,
+          searched: true,
         }
       });
     } catch (error){

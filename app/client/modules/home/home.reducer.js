@@ -1,6 +1,7 @@
 
 const initialState = {
   papers: [],
+  searched: false,
 };
 
 export default function moduleName(state = initialState, action = {}){

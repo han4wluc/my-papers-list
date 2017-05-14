@@ -11,7 +11,7 @@ export function login({username, password}) {
       const user = await AV.User.logIn(username, password);
       browserHistory.push('/home');
     } catch (error){
-      console.log({error});
+      // console.log({error});
       var errorMessage = 'Network Error';
       if(error.code === 211){
         errorMessage = 'Invalid username or password';
