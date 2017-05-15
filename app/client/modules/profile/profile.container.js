@@ -19,7 +19,7 @@ class ProfileContainer extends Component {
 
         <div className="row">
           <div className="col-md-12">
-            <Link to="/signup">
+            <Link to="/reqpass">
               <div>{'Change Password'}</div>
             </Link>
           </div>

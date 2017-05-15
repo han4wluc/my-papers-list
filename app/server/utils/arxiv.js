@@ -95,10 +95,6 @@ const fetchArxiv = async function({start = 0, max_results = 10, cat}){
       throw new Error('Unexpected Error, entries was null: \n' + data);
     }
 
-    if(Math.random() > 0.4){
-      throw new Error('Random Error ');
-    }
-
     const papers = await Promise.all(entries.map(entryToPaper));
     return { papers, totalResults };
   } catch (error){
