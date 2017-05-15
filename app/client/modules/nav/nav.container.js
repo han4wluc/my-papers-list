@@ -24,7 +24,9 @@ class NavContainer extends Component {
     return (
       <div className="mt-2 mt-md-0">
         <li className={'mr-sm-2 nav-item'}>
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+          <Link to="/login" >
+            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+          </Link>
         </li>
       </div>
     );
@@ -86,9 +88,8 @@ class NavContainer extends Component {
     return (
       <div>
 
-
-
-        <nav className="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+        <nav className="navbar navbar-toggleable-md navbar-inverse bg-inverse"
+          style={{marginBottom: '24px'}}>
           <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -111,31 +112,12 @@ class NavContainer extends Component {
           </div>
         </nav>
 
-        <div style={{
-          position: 'absolute',
-          top: '0px',
-          left: '0px',
-          right: '0px',
-          backgroundColor: '#292b2c',
-          height: '3px',
-        }}>
-          <LoadingBar
-            style={{ backgroundColor: '#0275d8', height: '3px' }}
-            updateTime={10} maxProgress={90} progressIncrease={5}
-          />
-        </div>        
-        <br/>
-
           { this.renderSuccess({successMessage,dismissSuccess}) }
           { this.renderError({errorMessage,dismissError}) }
 
         <div style={{minHeight:'600px'}}>
 
-
-
           {this.props.children}
-
-
 
         </div>
         <hr/>
@@ -153,6 +135,19 @@ class NavContainer extends Component {
           </div>
         </footer>
 
+        <div style={{
+          position: 'fixed',
+          top: '0px',
+          left: '0px',
+          right: '0px',
+          // backgroundColor: '#292b2c',
+          height: '3px',
+        }}>
+          <LoadingBar
+            style={{ backgroundColor: '#0275d8', height: '3px' }}
+            updateTime={10} maxProgress={90} progressIncrease={5}
+          />
+        </div>        
 
       </div>
     );

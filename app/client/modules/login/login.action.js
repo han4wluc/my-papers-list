@@ -15,8 +15,14 @@ export function login({username, password}) {
     } catch (error){
       console.log({error});
       var errorMessage = 'Network Error';
+      if(error.code === 210){
+        errorMessage = 'Wront password';
+      }
       if(error.code === 211){
-        errorMessage = 'Invalid username or password';
+        errorMessage = 'No such email registered';
+      }
+      if(error.code === 219){
+        errorMessage = 'Too many failed attempts, please try again later';
       }
       dispatch({
         type: 'NAV_SET_STATE',

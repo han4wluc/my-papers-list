@@ -25,7 +25,11 @@ export function reset({password1, password2, token}) {
 
     try {
       dispatch(showLoading());
-      var { data } = await axios.get(`https://us.leancloud.cn/1/resetPassword/${'JnqhufQv8WWfr50UtbUnlocF2S8gJAXt'}?password=aaa&callback=_&_1494814048980=`);
+      var token = location.search.match(/token=(\w*)/);
+      if(token&&token[1]){
+        token = token[1];
+      }
+      var { data } = await axios.get(`https://us.leancloud.cn/1/resetPassword/${token}?password=aaa&callback=_&_1494814048980=`);
       data = data.substring(2, data.length-1);
       data = JSON.parse(data);
       if(data.code === 1){

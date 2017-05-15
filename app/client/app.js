@@ -21,9 +21,11 @@ history.listen((location)=>{
     type: 'NAV_SET_STATE',
     props: {
       errorMessage: null,
+      successMessage: null,
     }
   });
   store.dispatch(hideLoading());
+  $('body').scrollTop(0);
 });
 
 const loginRequired = function(nextState, replace, callback) {
@@ -60,7 +62,7 @@ class App extends Component {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={containers['nav']}>
-            <IndexRedirect to="/reset" />
+            <IndexRedirect to="/reqpass" />
             {/*<IndexRedirect to="/detail/59071ee2e0450550d1170cf9" />*/}
             {/*routes*/}
             <Route path={'home'} component={containers['home']}/>
@@ -70,6 +72,7 @@ class App extends Component {
             <Route path={'login'} component={containers['login']} onEnter={alreadyLoggedIn}/>
             <Route path={'profile'} component={containers['profile']} onEnter={loginRequired}/>
             <Route path={'reset'} component={containers['reset']}/>
+            <Route path={'reqpass'} component={containers['reqpass']}/>
             
           </Route>
         </Router>

@@ -35,6 +35,11 @@ class LoginContainer extends Component {
                 <div>{'Click here to signup if you don\'t have an account'}</div>
               </Link>
             </div>
+            <div className="col-md-12">
+              <Link to="/reqpass">
+                <div>{'Forgot Password?'}</div>
+              </Link>
+            </div>
           </div>
           <br/>
           <div className="row">

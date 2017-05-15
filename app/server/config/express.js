@@ -51,7 +51,7 @@ new Rest({
   routeName: '/read',
 });
 
-app.get('/', function(req, res){
+app.get('*', function(req, res){
 
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -74,9 +74,9 @@ app.get('/', function(req, res){
 
 });
 
-app.get('*', function(req, res){
-  res.status(200).send('hello');
-});
+// app.get('*', function(req, res){
+//   res.status(200).send('hello');
+// });
 
 // app.get('*', function(req, res){
 //   console.log('GET /');
