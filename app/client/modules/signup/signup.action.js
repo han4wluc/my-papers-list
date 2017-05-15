@@ -12,6 +12,7 @@ export function signup({username, email, password}) {
     user.setPassword(password);
     user.setEmail(email);
     try {
+      dispatch(showLoading());
       await user.signUp();
       browserHistory.push('/home');
     } catch (error){

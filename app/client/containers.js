@@ -6,6 +6,7 @@ import read from './modules/read/read.container';
 import login from './modules/login/login.container';
 import signup from './modules/signup/signup.container';
 import profile from './modules/profile/profile.container';
+import reset from './modules/reset/reset.container';
 /**YEOMAN_HOOK_1**/
 
 export default {
@@ -16,6 +17,7 @@ export default {
   login,
   signup,
   profile,
+  reset,
   /**YEOMAN_HOOK_2**/
 };
 

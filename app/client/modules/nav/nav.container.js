@@ -15,16 +15,16 @@ class NavContainer extends Component {
     browserHistory.push('/home');
   }
 
-  collapseNav(){
-    $('#navbarCollapse').removeClass('show');
-    browserHistory.push('/login');
-  }
+  // collapseNav(){
+  //   $('#navbarCollapse').removeClass('show');
+  //   browserHistory.push('/login');
+  // }
 
   renderButton(){
     return (
       <div className="mt-2 mt-md-0">
         <li className={'mr-sm-2 nav-item'}>
-          <button onClick={this.collapseNav} className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
         </li>
       </div>
     );
@@ -37,13 +37,24 @@ class NavContainer extends Component {
 
     return (
       <div className="form-inline mt-2 mt-md-0">
-        <Link style={{color:color}} onClick={this.collapseNav} >{username}</Link>
-        <li className={'mr-sm-2 nav-item'}>
-          <button onClick={this.logout} className="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
-        </li>
+        <Link style={{color:color}} to="/profile" >{username}</Link>
       </div>
     );
 
+  }
+
+  renderSuccess({successMessage, dismissSuccess}){
+    if(!successMessage){ return null; }
+    return (
+      <div className="container">
+        <div className="alert alert-success" role="success">
+          <button onClick={dismissSuccess} type="button" className="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          { successMessage }
+        </div>
+      </div>
+    );
   }
 
   renderError({errorMessage, dismissError}){
@@ -62,8 +73,8 @@ class NavContainer extends Component {
 
   render(){
 
-    const { errorMessage } = this.props.state;
-    const { dismissError } = this.props.actions;
+    const { errorMessage, successMessage } = this.props.state;
+    const { dismissError, dismissSuccess } = this.props.actions;
 
     const pathname = this.props.location.pathname;
 
@@ -87,12 +98,12 @@ class NavContainer extends Component {
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav mr-auto">
               <li className={'nav-item' + (pathname === '/home' ? ' active' : '')}>
-                <Link className="nav-link" onClick={this.collapseNav} to="/home">{'Home'}</Link>
+                <Link className="nav-link" to="/home">{'Home'}</Link>
                 {/*<a className="nav-link" href="/home">Home <span className="sr-only">(current)</span></a>*/}
               </li>
 
               <li className={'nav-item' + (pathname === '/read' ? ' active' : '')}>
-                <Link className="nav-link" onClick={this.collapseNav} to="/read">{'Read'}</Link>
+                <Link className="nav-link" to="/read">{'Read'}</Link>
                 {/*<a className="nav-link" href="/read">Read</a>*/}
               </li>
             </ul>
@@ -115,6 +126,7 @@ class NavContainer extends Component {
         </div>        
         <br/>
 
+          { this.renderSuccess({successMessage,dismissSuccess}) }
           { this.renderError({errorMessage,dismissError}) }
 
         <div style={{minHeight:'600px'}}>

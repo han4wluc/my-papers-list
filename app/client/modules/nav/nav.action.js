@@ -7,3 +7,12 @@ export function dismissError() {
     }
   };
 }
+
+export function dismissSuccess() {
+  return {
+    type: 'NAV_SET_STATE',
+    props: {
+      successMessage: null,
+    }
+  };
+}
