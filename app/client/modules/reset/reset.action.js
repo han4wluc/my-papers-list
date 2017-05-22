@@ -1,5 +1,6 @@
 
-import axios from 'axios';
+import { Utils, } from '../../';
+const { axios } = Utils;
 import { browserHistory } from 'react-router';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
@@ -29,10 +30,12 @@ export function reset({password1, password2, token}) {
       if(token&&token[1]){
         token = token[1];
       }
-      var { data } = await axios.get(`https://us.leancloud.cn/1/resetPassword/${token}?password=aaa&callback=_&_1494814048980=`);
-      data = data.substring(2, data.length-1);
-      data = JSON.parse(data);
-      if(data.code === 1){
+      const { data } = await axios.post('/resetpassword', {
+        password: password1,
+        token,
+      });
+
+      if(data.code === 401){
         dispatch({
           type: 'NAV_SET_STATE',
           props: {

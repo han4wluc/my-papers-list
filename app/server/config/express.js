@@ -2,11 +2,13 @@
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
+// import https from 'https';
 
 const app = express();
 const port = 8000;
 
 app.use('/static', express.static(path.join(__dirname, '../static')));
+app.use('/DE01F7C8826788A6CD118D53CA51F6EE.txt', express.static(path.join(__dirname, '../DE01F7C8826788A6CD118D53CA51F6EE.txt')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -22,6 +24,8 @@ app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   next();
 });
+
+require('../api_')(app);
 
 import routes from './routes';
 routes(app);

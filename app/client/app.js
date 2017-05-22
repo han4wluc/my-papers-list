@@ -9,7 +9,7 @@ import containers from './containers';
 import { Utils } from './';
 const { AV } = Utils;
 
-import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory, IndexRedirect, Redirect } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 const history = syncHistoryWithStore(browserHistory, store);
@@ -48,24 +48,20 @@ const alreadyLoggedIn = function(nextState, replace, callback) {
   }
   callback();
 };
+            // 
 
 class App extends Component {
 
   render() {
-    // const moduleNames = Object.keys(containers).filter((n)=>n !== 'nav');
-    // const routes = moduleNames.map((moduleName, i)=>{
-    //   return (
-    //     <Route key={i} path={moduleName} component={containers[moduleName]}/>
-    //   );
-    // });
     return (
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={containers['nav']}>
-            <IndexRedirect to="/reqpass" />
+            <IndexRedirect to="/search" />
+            <Redirect from="home" to="search"/>
             {/*<IndexRedirect to="/detail/59071ee2e0450550d1170cf9" />*/}
             {/*routes*/}
-            <Route path={'home'} component={containers['home']}/>
+            <Route path={'search'} component={containers['home']}/>
             <Route path={'detail/:id'} component={containers['detail']} />
             <Route path={'read'} component={containers['read']} onEnter={loginRequired}/>
             <Route path={'signup'} component={containers['signup']} onEnter={alreadyLoggedIn}/>
@@ -73,7 +69,6 @@ class App extends Component {
             <Route path={'profile'} component={containers['profile']} onEnter={loginRequired}/>
             <Route path={'reset'} component={containers['reset']}/>
             <Route path={'reqpass'} component={containers['reqpass']}/>
-            
           </Route>
         </Router>
       </Provider>
