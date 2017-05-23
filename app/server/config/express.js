@@ -2,7 +2,7 @@
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
-// import https from 'https';
+import fs from 'fs';
 
 const app = express();
 const port = 8000;
@@ -25,59 +25,19 @@ app.all('*', function(req, res, next) {
   next();
 });
 
+require('./mongoose');
 require('../api')(app);
+require('../api/rest')(app);
 
 import routes from './routes';
 routes(app);
 
-require('./mongoose');
-import Torest from 'torest';
-import User from '../model/User';
-import Paper from '../model/Paper';
-import Read from '../model/Read';
-
-Torest({
-  model: User,
-  app,
-  routeName: '/user',
-});
-
-Torest({
-  model: Paper,
-  app,
-  routeName: '/paper',
-});
-
-Torest({
-  model: Read,
-  app,
-  routeName: '/read',
-});
+const html = fs.readFileSync(path.join(__dirname, '../../../index.html'), 'utf-8')
+  .replace('<script src="./app/server/static/bundle.js"></script>', '<script src="/static/bundle.js"></script>');
 
 app.get('*', function(req, res){
-
-  const html = `<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>MyPaperList</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-      <div id="root"></div>
-    </body>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <script src="/static/bundle.js"></script>
-
-</html>`;
-
   res.status(200).send(html);
-
 });
-
 
 const server = app.listen(port, () => {
   console.log(`express server listening at http://localhost:${port}`);
