@@ -24,7 +24,7 @@ export function getPaper(id) {
       const paperId = id;
       const response2 = await axios.get('/read', {
         params: {
-          find: {
+          where: {
             user: userId,
             paper: paperId,
           },
@@ -56,7 +56,7 @@ export function onClickStatusButton({status,paperId}){
   return async function(dispatch, getState){
     try {
       const response = await axios.put('/read', {
-        query: {
+        where: {
           user: userId,
           paper: paperId,
         },

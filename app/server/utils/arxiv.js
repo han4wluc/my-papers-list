@@ -70,7 +70,7 @@ const fetchArxiv = async function({start = 0, max_results = 10, cat}){
   try {
     const { data } = await axios.get('http://export.arxiv.org/api/query', {
       params: {
-        search_query: `cat:${cat}`,
+        search_query: encodeURI(`cat:${cat}`),
         start,
         max_results,
         sortBy: 'lastUpdatedDate',

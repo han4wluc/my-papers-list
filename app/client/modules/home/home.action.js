@@ -11,7 +11,7 @@ export function searchPapers(keyword) {
       const regex = new RegExp(keyword,'i');
       const response = await axios.get('paper', {
         params: {
-          find: {
+          where: {
             // $or: [{
               title: {
                 $regex: keyword,
@@ -33,7 +33,7 @@ export function searchPapers(keyword) {
 
       // const response2 = await axios.get('', {
       //   params: {
-      //     find: {
+      //     where: {
       //       user: '',
       //       paper: {
       //         $in: papers.map(p=>p.id),

@@ -25,31 +25,30 @@ app.all('*', function(req, res, next) {
   next();
 });
 
-require('../api_')(app);
+require('../api')(app);
 
 import routes from './routes';
 routes(app);
 
 require('./mongoose');
-import Rest from '../api/controller';
+import Torest from 'torest';
 import User from '../model/User';
 import Paper from '../model/Paper';
-// import PaperText from '../model/PaperText';
 import Read from '../model/Read';
 
-new Rest({
+Torest({
   model: User,
   app,
   routeName: '/user',
 });
 
-new Rest({
+Torest({
   model: Paper,
   app,
   routeName: '/paper',
 });
 
-new Rest({
+Torest({
   model: Read,
   app,
   routeName: '/read',
@@ -60,6 +59,7 @@ app.get('*', function(req, res){
   const html = `<!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>MyPaperList</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -78,31 +78,6 @@ app.get('*', function(req, res){
 
 });
 
-// app.get('*', function(req, res){
-//   res.status(200).send('hello');
-// });
-
-// app.get('*', function(req, res){
-//   console.log('GET /');
-//   res.status(200).send(
-//     `
-//     <!doctype html>
-//     <html>
-//       <head>
-//         <title>Redux Universal Example</title>
-//       </head>
-//       <body>
-//         hello hello ee
-//         <div id="root"></div>
-//         <script>
-//           window.__INITIAL_STATE__ = ""
-//         </script>
-//         <script src="http://localhost:8080/app/server/static/bundle.js"></script>
-//       </body>
-//     </html>
-//     `
-//   );
-// });
 
 const server = app.listen(port, () => {
   console.log(`express server listening at http://localhost:${port}`);

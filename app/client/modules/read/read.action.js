@@ -18,7 +18,7 @@ export function getRead({status}) {
       });
       const response = await axios.get('read', {
         params: {
-          find: {
+          where: {
             user: userId,
             status,
           },
