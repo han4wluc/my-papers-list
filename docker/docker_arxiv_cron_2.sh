@@ -1,9 +1,9 @@
 
-docker build --tag cron_2 ./cron/arxiv_scrape_2
+docker build --tag cron_2 ../cron/arxiv_scrape_2
 docker run \
   --name cron_2 \
   --restart always \
-  -v /apps:/apps \
+  -v /apps/mpl:/apps/mpl \
   -d cron_2
   # ./cron.sh
   # -d cron && tail -f /var/log/cron.log
