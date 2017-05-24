@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import * as profileActions from './profile.action';
 import { Utils, } from '../../';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 const { Setup, AV } = Utils;
 
 class ProfileContainer extends Component {
@@ -25,7 +25,7 @@ class ProfileContainer extends Component {
           </div>
         </div>
         <br/>
-        <button onClick={logout} type="submit" className="btn btn-danger">Logout</button>
+        <button onClick={logout.bind(this,{history:this.props.history})} type="submit" className="btn btn-danger">Logout</button>
       </div>
     );
   }

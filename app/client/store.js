@@ -4,11 +4,11 @@ import { createStore, combineReducers, applyMiddleware} from 'redux';
 import * as reducers from './reducers';
 import { loadingBarReducer, loadingBarMiddleware } from 'react-redux-loading-bar';
 
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+// import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 const reducer = combineReducers({
   ...reducers,
-  routing: routerReducer,
+  // routing: routerReducer,
   loadingBar: loadingBarReducer,
 });
 const store = createStore(

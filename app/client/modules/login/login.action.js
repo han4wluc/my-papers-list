@@ -1,17 +1,16 @@
 
 import { Utils, } from '../../';
 const { AV } = Utils;
-import { browserHistory } from 'react-router';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { Link } from 'react-router';
 
-export function login({username, password}) {
+export function login({username, password, history}) {
   return async function(dispatch, getState){
     try {
       // await AV.User.requestPasswordReset('han4wluc@gmail.com');
       dispatch(showLoading());
       const user = await AV.User.logIn(username, password);
-      browserHistory.push('/home');
+      history.push('/');
     } catch (error){
       console.log({error});
       var errorMessage = 'Network Error';

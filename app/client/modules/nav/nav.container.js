@@ -2,32 +2,36 @@
 import React, { Component } from 'react';
 import * as navActions from './nav.action';
 import { Utils, } from '../../';
-import LoadingBar from 'react-redux-loading-bar'
+import LoadingBar from 'react-redux-loading-bar';
+import { hideLoading } from 'react-redux-loading-bar';
 
 const { Setup, AV } = Utils;
 
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class NavContainer extends Component {
 
-  logout(){
-    AV.User.logOut();
-    browserHistory.push('/home');
+  componentDidMount() {
+    this.props.history.listen((location)=>{
+      $('#navbarCollapse').removeClass('show');
+      this.props.dispatch({
+        type: 'NAV_SET_STATE',
+        props: {
+          errorMessage: null,
+          successMessage: null,
+        }
+      });
+      this.props.dispatch(hideLoading());
+      $('body').scrollTop(0);
+    });
   }
-
-  // collapseNav(){
-  //   $('#navbarCollapse').removeClass('show');
-  //   browserHistory.push('/login');
-  // }
 
   renderButton(){
     return (
       <div className="mt-2 mt-md-0">
-        <li className={'mr-sm-2 nav-item'}>
-          <Link to="/login" >
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
-          </Link>
-        </li>
+        <Link to="/login" >
+          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+        </Link>
       </div>
     );
   }
@@ -78,32 +82,34 @@ class NavContainer extends Component {
     const { errorMessage, successMessage } = this.props.state;
     const { dismissError, dismissSuccess } = this.props.actions;
 
-    const pathname = this.props.location.pathname;
+    // const pathname = this.props.location.pathname;
 
     const user = AV.User.current();
     let userComp = this.renderButton();
     if(user){
-      userComp = this.renderUsername({username:user.getUsername(),pathname});
+      userComp = this.renderUsername({username:user.getUsername()});
     }
+
     return (
       <div>
 
         <nav className="navbar navbar-toggleable-md navbar-inverse bg-inverse"
           style={{marginBottom: '24px'}}>
           <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <Link to="/home">
+             <span className="navbar-toggler-icon"></span>
+          </button>   
+
+          <Link to="/">
             <a className="navbar-brand" href="#">MyPaperList</a>
           </Link>
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav mr-auto">
-              <li className={'nav-item' + (pathname === '/home' ? ' active' : '')}>
-                <Link className="nav-link" to="/home">{'Home'}</Link>
+              <li className={'nav-item active'}>
+                <Link className="nav-link" to="/">{'Home'}</Link>
                 {/*<a className="nav-link" href="/home">Home <span className="sr-only">(current)</span></a>*/}
               </li>
 
-              <li className={'nav-item' + (pathname === '/read' ? ' active' : '')}>
+              <li className={'nav-item'}>
                 <Link className="nav-link" to="/read">{'Read'}</Link>
                 {/*<a className="nav-link" href="/read">Read</a>*/}
               </li>
@@ -115,25 +121,8 @@ class NavContainer extends Component {
           { this.renderSuccess({successMessage,dismissSuccess}) }
           { this.renderError({errorMessage,dismissError}) }
 
-        <div style={{minHeight:'600px'}}>
 
-          {this.props.children}
 
-        </div>
-        <hr/>
-
-        <footer className="bd-footer text-muted">
-          <div className="container">
-            {/*<div className="bd-footer-links" style={{display:'flex',flex:1,flexDirection:'rows',marginBottom:'12px'}}>
-              <div style={{marginRight:'16px'}}><a href="https://github.com/twbs/bootstrap">GitHub</a></div>
-              <div style={{marginRight:'16px'}}><a href="https://twitter.com/getbootstrap">Twitter</a></div>
-              <div style={{marginRight:'16px'}}><a href="/examples/">Examples</a></div>
-              <div><a href="/about/history/">About</a></div>
-            </div>
-            <p>Designed and built with all the love in the world by <a href="https://twitter.com/mdo" target="_blank">@mdo</a> </p>
-            */}<p> MyPaperList </p>
-          </div>
-        </footer>
 
         <div style={{
           position: 'fixed',
@@ -149,9 +138,15 @@ class NavContainer extends Component {
           />
         </div>        
 
+
       </div>
     );
   }
 }
+
+
+
+
+
 
 export default Setup.customConnect('nav', navActions, NavContainer);

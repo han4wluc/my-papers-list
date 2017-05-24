@@ -4,6 +4,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import fs from 'fs';
 
+
+
+
 const app = express();
 const port = 8000;
 
@@ -35,8 +38,31 @@ routes(app);
 const html = fs.readFileSync(path.join(__dirname, '../../../index.html'), 'utf-8')
   .replace('<script src="./app/server/static/bundle.js"></script>', '<script src="/static/bundle.js"></script>');
 
+
+
+
+
+
+import { renderToString } from 'react-dom/server';
+import App from '../../client/app';
+
 app.get('*', function(req, res){
-  res.status(200).send(html);
+
+  const h = renderToString(
+    <App/>
+  );
+
+  console.log(h);
+
+  // res.status(200).send(html);
+
+
+  // const html = renderToString(
+  //   <Provider store={store}>
+  //     <SongDetailContainer />
+  //   </Provider>
+  // )
+
 });
 
 const server = app.listen(port, () => {

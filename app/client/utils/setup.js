@@ -1,6 +1,7 @@
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 const customConnect = function(name, actions, container){
   return connect((state) => ({
@@ -8,7 +9,7 @@ const customConnect = function(name, actions, container){
   }), (dispatch) => ({
     actions: bindActionCreators(actions, dispatch),
     dispatch: dispatch,
-  }))(container);
+  }))(withRouter(container));
 };
 
 export default {

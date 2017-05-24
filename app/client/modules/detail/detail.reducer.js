@@ -1,6 +1,6 @@
 
 const initialState = {
-  isLoading: false,
+  isLoading: true,
   paper: {
     title: undefined,
     abstract: undefined,

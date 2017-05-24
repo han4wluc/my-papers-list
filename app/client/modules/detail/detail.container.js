@@ -8,9 +8,16 @@ const { Setup } = Utils;
 
 class DetailContainer extends Component {
 
+  constructor(props) {
+    super(props);
+    console.log('props', props)
+    // this.state = {};
+  }
+
   componentDidMount() {
-    console.log('didMount')
-    const { id } = this.props.params;
+    // console.log('didMount')
+    console.log(this.props.params);
+    const { id } = this.props.match.params;
     this.props.actions.getPaper(id);
   }
 
@@ -66,7 +73,7 @@ class DetailContainer extends Component {
     }
 
     const { title, summary, pdf, authors = [] } = this.props.state.paper;
-    const { id:paperId } = this.props.params;
+    const { id:paperId } = this.props.match.params;
     const { onClickStatusButton } = this.props.actions;
     return (
       <div className="container">

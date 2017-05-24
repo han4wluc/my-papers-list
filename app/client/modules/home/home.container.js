@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import * as homeActions from './home.action';
 import { Utils, Comps, } from '../../';
-import { browserHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const { Setup } = Utils;
 const { Cell } = Comps;
@@ -49,13 +49,14 @@ class HomeContainer extends Component {
     }
 
     return papers.map((paper,index)=>{
+      // console.log(paper)
       return (
         <Cell
           key={index}
           {...paper}
           onClickDetail={function(){
-            console.log('push')
-            browserHistory.push('/detail/' + paper._id);
+            // console.log('push')
+            // browserHistory.push('/detail/' + paper._id);
           }}
         />
       );

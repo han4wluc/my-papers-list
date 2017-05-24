@@ -1,13 +1,12 @@
 
 import { Utils, } from '../../';
-import { browserHistory } from 'react-router';
 const { AV } = Utils;
 
-export function logout() {
+export function logout({history}) {
 
   return async (dispatch, getState) => {
     AV.User.logOut();
-    browserHistory.push('/home');
+    history.push('/');
   };
 
 }
