@@ -3,9 +3,7 @@ import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import fs from 'fs';
-
-
-
+import React from 'react';
 
 const app = express();
 const port = 8000;
@@ -35,33 +33,45 @@ require('../api/rest')(app);
 import routes from './routes';
 routes(app);
 
-const html = fs.readFileSync(path.join(__dirname, '../../../index.html'), 'utf-8')
+const html_ = fs.readFileSync(path.join(__dirname, '../../../index.html'), 'utf-8')
   .replace('<script src="./app/server/static/bundle.js"></script>', '<script src="/static/bundle.js"></script>');
 
-
-
-
-
-
-import { renderToString } from 'react-dom/server';
+// import { renderToString } from 'react-dom/server';
+import { renderToString } from 'react-router-server';
 import App from '../../client/app';
+import { Provider } from 'react-redux';
+import { Switch, Route, StaticRouter } from 'react-router';
+import store from '../../client/store';
 
-app.get('*', function(req, res){
 
-  const h = renderToString(
-    <App/>
+app.get('*', async function(req, res){
+
+  const context = {};
+
+  const { html } = await renderToString(
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={context}>
+        <App/>
+      </StaticRouter>
+    </Provider>
   );
 
-  console.log(h);
+  if(context.url){
+    console.log('redirect');
+    res.redirect(301, context.url);
+    return;
+  }
+  console.log('send');
+  const newHtml = html_.replace(`<!--HOOK-->`, html);
+  res.status(200).send(newHtml);
 
-  // res.status(200).send(html);
+  // .then(({ html }) => {
 
+  // })
+  // .catch((error)=>{
+  //   console.log(error);
+  // });
 
-  // const html = renderToString(
-  //   <Provider store={store}>
-  //     <SongDetailContainer />
-  //   </Provider>
-  // )
 
 });
 

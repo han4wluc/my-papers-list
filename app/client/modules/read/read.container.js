@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import * as readActions from './read.action';
 import { Utils, Comps, } from '../../';
-import { browserHistory } from 'react-router';
 const { Setup } = Utils;
 const { Cell } = Comps;
 
@@ -20,6 +19,9 @@ class ReadContainer extends Component {
 
   renderStatuses({paperId,readStatus,getRead}){
 
+    try {
+
+
     const notReadBtnStatus = readStatus === undefined ? 'btn btn-primary' : 'btn btn-secondary';
     const readBtnStatus = readStatus === 'read' ? 'btn btn-primary' : 'btn btn-secondary';
     const planToReadBtnStatus = readStatus === 'plan_to_read' ? 'btn btn-primary' : 'btn btn-secondary';
@@ -29,20 +31,24 @@ class ReadContainer extends Component {
         <label onClick={()=>{
           getRead({status:undefined});
         }} className={notReadBtnStatus}>
-          <input type="radio" name="options" id="option1" autoComplete="off"> {'All'}</input>
+          <div type="radio" name="options" id="option1" autoComplete="off"> {'All'}</div>
         </label>
         <label onClick={()=>{
           getRead({status:'read'});
         }} className={readBtnStatus}>
-          <input type="radio" name="options" id="option2" autoComplete="off"> {'Read'}</input>
+          <div type="radio" name="options" id="option2" autoComplete="off"> {'Read'}</div>
         </label>
         <label onClick={()=>{
           getRead({status:'plan_to_read'});
         }} className={planToReadBtnStatus}>
-          <input type="radio" name="options" id="option3" autoComplete="off"> {'Plan to Read'}</input>
+          <div type="radio" name="options" id="option3" autoComplete="off"> {'Plan to Read'}</div>
         </label>
       </div>
-    );  
+    );
+    } catch (error){
+      console.log(error)
+    }
+
   }
 
   renderRead({read,isLoading}){
@@ -50,7 +56,7 @@ class ReadContainer extends Component {
     if(isLoading){
       return (
         <div>{'loading'}</div>
-      )
+      );
     }
 
     return read.map((read, index)=>{
@@ -58,9 +64,6 @@ class ReadContainer extends Component {
         <Cell
           key={index}
           {...read.paper}
-          onClickDetail={function(){
-            browserHistory.push('/detail/' + read.paper._id);
-          }}
         />
       );
     });

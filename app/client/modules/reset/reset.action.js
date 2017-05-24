@@ -1,10 +1,9 @@
 
 import { Utils, } from '../../';
 const { axios } = Utils;
-import { browserHistory } from 'react-router';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
-export function reset({password1, password2, token}) {
+export function reset({password1, password2, token, history}) {
 
   return async (dispatch, getState) => {
 
@@ -53,7 +52,7 @@ export function reset({password1, password2, token}) {
       });
 
       setTimeout(function(){
-        browserHistory.push('/login');
+        history.push('/login');
       },1000);
 
     } catch (error){

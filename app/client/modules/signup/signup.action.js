@@ -1,10 +1,9 @@
 
 import { Utils, } from '../../';
 const { AV, } = Utils;
-import { browserHistory } from 'react-router';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
-export function signup({username, email, password}) {
+export function signup({username, email, password, history}) {
 
   return async function(dispatch, getState){
     const user = new AV.User();
@@ -14,7 +13,7 @@ export function signup({username, email, password}) {
     try {
       dispatch(showLoading());
       await user.signUp();
-      browserHistory.push('/home');
+      history.push('/home');
     } catch (error){
       console.log({error});
       var errorMessage = 'Network Error';

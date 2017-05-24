@@ -99,8 +99,8 @@ class NavContainer extends Component {
              <span className="navbar-toggler-icon"></span>
           </button>   
 
-          <Link to="/">
-            <a className="navbar-brand" href="#">MyPaperList</a>
+          <Link className="navbar-brand" to="/">
+            MyPaperList
           </Link>
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav mr-auto">

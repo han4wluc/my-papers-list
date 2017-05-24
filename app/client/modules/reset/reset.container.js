@@ -17,7 +17,7 @@ class ResetContainer extends Component {
       token = token[1];
     }
 
-    reset({password1, password2, token});
+    reset({password1, password2, token, history: this.props.history});
   }
 
   render(){

@@ -13,7 +13,7 @@ class SignupContainer extends Component {
     const email = this.refs.email.value;
     const password = this.refs.password.value;
     const { signup } = this.props.actions;
-    signup({username,email,password});
+    signup({username,email,password, history:this.props.history});
   }
 
   render(){

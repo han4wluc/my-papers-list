@@ -10,7 +10,7 @@ class ReqpassContainer extends Component {
   submit({request}){
     const email = this.refs.email.value;
     // console.log(email);
-    request({email});
+    request({email, history: this.props.history});
   }
 
   render(){

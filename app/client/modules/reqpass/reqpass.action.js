@@ -1,11 +1,10 @@
 
 import { Utils, } from '../../';
 const { AV } = Utils;
-import { browserHistory } from 'react-router';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 
-export function request({email}) {
+export function request({email, history}) {
   return async (dispatch, getState) => {
 
     try {
@@ -20,7 +19,7 @@ export function request({email}) {
         }
       });
       setTimeout(function(){
-        browserHistory.push('/login');
+        history.push('/login');
       },1000);
     } catch (error) {
       console.log(error);
