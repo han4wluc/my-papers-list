@@ -24,6 +24,7 @@
     "lodash": "^4.17.4",
     "mockgoose": "^7.1.1",
     "mongoose": "^4.9.5",
+    "node-arxiv": "0.0.1",
     "npm": "^4.5.0",
     "pdfjs-dist": "^1.8.303",
     "radium": "^0.17.1",
