@@ -19,7 +19,6 @@ const Nav = containers['nav'];
 
 const loginRequired = function(Comp){
   if(!AV.User.current()){
-    console.log('NOT LOGEED IN')
     return (
       <Redirect to={{
         pathname: '/',

@@ -25,7 +25,7 @@ try {
     document.getElementById('root')
   );
 } catch (error){
-  console.log(error)
+  // console.log(error)
 }
 
 

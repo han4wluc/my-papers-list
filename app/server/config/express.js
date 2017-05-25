@@ -47,8 +47,8 @@ import initStore from '../../client/store';
 
 const serverRender = async function(req, res){
   const html_ = fs.readFileSync(path.join(__dirname, '../../../index.html'), 'utf-8')
-    // .replace('<script src="./app/server/static/bundle.js"></script>', '<script src="/static/bundle.js"></script>');
-    .replace('<script src="./app/server/static/bundle.js"></script>', `<script src="http://localhost:8080/app/server/static/bundle.js"></script>`);
+    .replace('<script src="./app/server/static/bundle.js"></script>', '<script src="/static/bundle.js"></script>');
+    // .replace('<script src="./app/server/static/bundle.js"></script>', `<script src="http://localhost:8080/app/server/static/bundle.js"></script>`);
   const context = {};
   const store = initStore();
   const { html } = await renderToString(
@@ -69,7 +69,7 @@ const serverRender = async function(req, res){
   res.status(200).send(newHtml);
 };
 
-['/', '/signup', '/login', 'read', 'detail', 'reqpass', 'reset', 'profile'].forEach((routeName)=>{
+['/', '/signup', '/login', '/read', '/detail', '/reqpass', '/reset', '/profile'].forEach((routeName)=>{
   app.get(routeName, serverRender);
 });
 

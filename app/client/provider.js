@@ -4,8 +4,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from './store';
 
-console.log('store', store);
-
 export default class MyProvider extends Component {
   render() {
     return (

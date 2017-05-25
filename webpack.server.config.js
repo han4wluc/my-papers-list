@@ -13,12 +13,12 @@ module.exports = {
   target: 'node',
 
   //keep nod_module paths ouf of the bundle
-  externals: fs.readdirSync(path.resolve(__dirname, 'node_modules')).concat([
-    'react-dom/server'
-  ]).reduce(function (ext, mod) {
-    ext[mod] = 'commonjs ' + mod;
-    return ext;
-  }, {}),
+  // externals: fs.readdirSync(path.resolve(__dirname, 'node_modules')).concat([
+  //   'react-dom/server'
+  // ]).reduce(function (ext, mod) {
+  //   ext[mod] = 'commonjs ' + mod;
+  //   return ext;
+  // }, {}),
 
   node: {
     __filename: true,
@@ -28,8 +28,12 @@ module.exports = {
     loaders: [{
       test: /\.js$/,// A regexp to test the require path. accepts either js or jsx
       exclude: /node_modules/,
-      loaders: ['babel?presets[]=es2015&presets[]=stage-2&presets[]=react'],
-
+      // loaders: ['babel?presets[]=es2015&presets[]=stage-2&presets[]=react'],
+      loader: 'babel-loader',
+      query: {
+        plugins: ['transform-decorators-legacy'],
+        presets: ['es2015', 'stage-2', 'react'],
+      }
     }],
   }
 };
