@@ -3,15 +3,76 @@ import React, { Component } from 'react';
 import * as homeActions from './home.action';
 import { Utils, Comps, } from '../../';
 import { Link } from 'react-router-dom';
+import { withDone } from 'react-router-server';
 
 const { Setup } = Utils;
 const { Cell } = Comps;
 
+
+import url from 'url';
+import qs from 'querystring';
+
+// var query = require('url').parse(req.url,true).query;
+
+import { fetchState } from 'react-router-server';
+
+// @fetchState(
+//   state => ({ serverRednered: state.serverRednered }),
+//   actions => ({ done: actions.done })
+// )
+@withDone
 class HomeContainer extends Component {
 
   constructor(props) {
     super(props);
     this.search = '';
+  }
+
+  async componentWillMount() {
+
+    const { searchPapers } = this.props.actions;
+    const { done } = this.props;
+
+
+    try {
+    //   console.log('window', !!window);
+    // } catch (error){
+      // console.log('erroR', error);
+
+      var location = this.props.location.search.replace(/^\?/, '');
+
+      const query = qs.parse(location);
+      // console.log(window.location)
+      // const query = url.parse(window.location.href, true).query;
+      // console.log('query', query)
+      if(query.search){
+        if(!this.props.state.searched){
+          // console.log('server not rendered', this.props.serverRednered, this.props.state.searched)
+          // console.log('query.search', query.search)
+          await searchPapers(query.search);
+          // done();
+          // this.props.done({ serverRednered: true });
+        } else {
+          // console.log('server already rendered')
+          // done();
+          // this.props.done({ serverRednered: true });
+        }        
+      }
+      done()
+      // console.log('query', query);
+
+
+    } catch (error){
+      // console.log(error);
+    }
+
+
+
+    // if (!this.props.message) {
+    //   setTimeout(() => {
+    //     this.props.done({ message: 'Hello world!' });
+    //   }, 10);
+    // }
   }
 
   renderPapers({papers,searched}){

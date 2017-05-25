@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import fs from 'fs';
 import React from 'react';
+import _ from 'lodash';
 
 const app = express();
 const port = 8000;
@@ -33,21 +34,23 @@ require('../api/rest')(app);
 import routes from './routes';
 routes(app);
 
-const html_ = fs.readFileSync(path.join(__dirname, '../../../index.html'), 'utf-8')
-  .replace('<script src="./app/server/static/bundle.js"></script>', '<script src="/static/bundle.js"></script>');
 
 // import { renderToString } from 'react-dom/server';
 import { renderToString } from 'react-router-server';
 import App from '../../client/app';
 import { Provider } from 'react-redux';
+// import { ServerStateProvider } from 'react-router-server';
 import { Switch, Route, StaticRouter } from 'react-router';
-import store from '../../client/store';
 
+import initStore from '../../client/store';
+// const initialEmptyState = _.cloneDeep(initStore.getState());
 
-app.get('*', async function(req, res){
-
+const serverRender = async function(req, res){
+  const html_ = fs.readFileSync(path.join(__dirname, '../../../index.html'), 'utf-8')
+    // .replace('<script src="./app/server/static/bundle.js"></script>', '<script src="/static/bundle.js"></script>');
+    .replace('<script src="./app/server/static/bundle.js"></script>', `<script src="http://localhost:8080/app/server/static/bundle.js"></script>`);
   const context = {};
-
+  const store = initStore();
   const { html } = await renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={context}>
@@ -55,25 +58,21 @@ app.get('*', async function(req, res){
       </StaticRouter>
     </Provider>
   );
-
   if(context.url){
     console.log('redirect');
     res.redirect(301, context.url);
     return;
   }
-  console.log('send');
-  const newHtml = html_.replace(`<!--HOOK-->`, html);
+  const initialState = store.getState();
+  const initialStateString = `<script>window.__INITIAL_STATE__=${JSON.stringify(initialState)}</script>`;
+  const newHtml = html_.replace(`<!--HOOK-->`, html).replace(`<!--HOOK_INITIAL_STATE-->`, initialStateString);
   res.status(200).send(newHtml);
+};
 
-  // .then(({ html }) => {
-
-  // })
-  // .catch((error)=>{
-  //   console.log(error);
-  // });
-
-
+['/', '/signup', '/login', 'read', 'detail', 'reqpass', 'reset', 'profile'].forEach((routeName)=>{
+  app.get(routeName, serverRender);
 });
+
 
 const server = app.listen(port, () => {
   console.log(`express server listening at http://localhost:${port}`);

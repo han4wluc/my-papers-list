@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-let baseURL = 'http://47.52.57.206:8000/';
+let baseURL = 'http://47.52.57.206:8000/api/v1/';
 if(process.env.NODE_ENV === 'production'){
   baseURL = '/';
 }

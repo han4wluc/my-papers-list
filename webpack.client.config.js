@@ -30,14 +30,21 @@ module.exports = {
   //   contentBase: 'http://localhost:8000'
   // },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    // 'transform-decorators-legacy'
   ],
 
   module: {
     loaders: [{
       test: /\.js$/,// A regexp to test the require path. accepts either js or jsx
       exclude: /node_modules/,
-      loaders: [/*'react-hot-loader/webpack', */'babel-loader?presets[]=es2015&presets[]=stage-2&presets[]=react'],
+      loader: 'babel-loader',
+      query: {
+        plugins: ['transform-decorators-legacy'],
+        presets: ['es2015', 'stage-2', 'react'],
+      }
+      // loaders: [/*'react-hot-loader/webpack', */'babel-loader?presets[]=es2015&presets[]=stage-2&presets[]=react'],
     }],
+    // plugins: ['transform-decorators-legacy'],
   },
 };

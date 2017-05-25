@@ -13,6 +13,10 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 const Nav = containers['nav'];
 
+
+
+
+
 const loginRequired = function(Comp){
   if(!AV.User.current()){
     console.log('NOT LOGEED IN')

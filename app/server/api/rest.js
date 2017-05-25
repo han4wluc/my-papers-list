@@ -8,18 +8,18 @@ module.exports = function(app){
   Torest({
     model: User,
     app,
-    routeName: '/user',
+    routeName: '/api/v1/user',
   });
 
   Torest({
     model: Paper,
     app,
-    routeName: '/paper',
+    routeName: '/api/v1/paper',
   });
 
   Torest({
     model: Read,
     app,
-    routeName: '/read',
+    routeName: '/api/v1/read',
   });
 };

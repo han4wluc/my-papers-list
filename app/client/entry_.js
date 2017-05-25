@@ -15,9 +15,17 @@ import App from './app';
  //  console.log('module not hot')
  // }
 
-render(
-  <Provider>
-    <App/>
-  </Provider>,
-  document.getElementById('root')
-);
+try {
+//   console.log('window1', !!window);
+// } catch (error){
+  render(
+    <Provider>
+      <App/>
+    </Provider>,
+    document.getElementById('root')
+  );
+} catch (error){
+  console.log(error)
+}
+
+

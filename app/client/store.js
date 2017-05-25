@@ -11,10 +11,41 @@ const reducer = combineReducers({
   // routing: routerReducer,
   loadingBar: loadingBarReducer,
 });
-const store = createStore(
-  reducer,
-  applyMiddleware(thunk),
-);
 
-export default store;
+
+// try {
+//   console.log('window3', !!window);
+//   store = createStore(
+//     reducer,
+//     window.__INITIAL_STATE__,
+//     applyMiddleware(thunk),
+//   );
+//   console.log('store state', store.getState());
+// } catch (error){
+//   console.log(error);
+//   store = createStore(
+//     reducer,
+//     applyMiddleware(thunk),
+//   );
+// }
+
+export default function(){
+  var store;
+  try {
+    // console.log('window3', !!window);
+    store = createStore(
+      reducer,
+      window.__INITIAL_STATE__,
+      applyMiddleware(thunk),
+    );
+    // console.log('store state', store.getState());
+  } catch (error){
+    // console.log(error);
+    store = createStore(
+      reducer,
+      applyMiddleware(thunk),
+    );
+  }
+  return store;
+}
 

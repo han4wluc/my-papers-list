@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import * as signupActions from './signup.action';
 import { Utils, } from '../../';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const { Setup } = Utils;
 
