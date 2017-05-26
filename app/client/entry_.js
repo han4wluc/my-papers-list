@@ -1,31 +1,23 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import Provider from './provider';
-import App from './app';
-
- // if (module.hot) {
- //  console.log('module hot');
- //   module.hot.accept('./app.js', () => {
- //     console.log('accepted')
- //     const NextRootContainer = require('./app.js').default;
- //     render(<NextRootContainer />, document.getElementById('root'));
- //   });
- // } else {
- //  console.log('module not hot')
- // }
 
 try {
-//   console.log('window1', !!window);
-// } catch (error){
+  !!window; // no window during server-rendering;
+  if (module.hot) {
+    module.hot.accept('./rootContainer.js', () => {
+      const NextRootContainer = require('./rootContainer.js').default;
+      render(
+        <NextRootContainer/>,
+        document.getElementById('root')
+      );
+    });
+  }
+  const RootContainer = require('./rootContainer.js').default;
   render(
-    <Provider>
-      <App/>
-    </Provider>,
+    <RootContainer/>,
     document.getElementById('root')
   );
 } catch (error){
-  // console.log(error)
+  // already rendered by server side
 }
-
-

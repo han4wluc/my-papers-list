@@ -1,25 +1,16 @@
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import qs from 'querystring';
+
 import * as homeActions from './home.action';
 import { Utils, Comps, } from '../../';
-import { Link } from 'react-router-dom';
 import { withDone } from 'react-router-server';
+
 
 const { Setup } = Utils;
 const { Cell } = Comps;
 
-
-import url from 'url';
-import qs from 'querystring';
-
-// var query = require('url').parse(req.url,true).query;
-
-import { fetchState } from 'react-router-server';
-
-// @fetchState(
-//   state => ({ serverRednered: state.serverRednered }),
-//   actions => ({ done: actions.done })
-// )
 @withDone
 class HomeContainer extends Component {
 

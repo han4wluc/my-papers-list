@@ -65,7 +65,6 @@ export function searchPapers(keyword) {
       });
     } catch (error){
       console.log(error);
-
       dispatch({
         type: 'NAV_SET_STATE',
         props: {

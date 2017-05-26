@@ -13,12 +13,12 @@ module.exports = {
   target: 'node',
 
   //keep nod_module paths ouf of the bundle
-  // externals: fs.readdirSync(path.resolve(__dirname, 'node_modules')).concat([
-  //   'react-dom/server'
-  // ]).reduce(function (ext, mod) {
-  //   ext[mod] = 'commonjs ' + mod;
-  //   return ext;
-  // }, {}),
+  externals: fs.readdirSync(path.resolve(__dirname, 'node_modules')).concat([
+    'react-dom/server'
+  ]).reduce(function (ext, mod) {
+    ext[mod] = 'commonjs ' + mod;
+    return ext;
+  }, {}),
 
   node: {
     __filename: true,
