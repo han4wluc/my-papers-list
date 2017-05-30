@@ -1,8 +1,4 @@
 
-// var shell = require('shelljs');
-// var redis = require("redis");
-
-// import shell from 'shelljs';
 import * as arxiv from './app/server/utils/arxiv';
 import fetchArxiv from 'node-arxiv';
 
@@ -13,15 +9,9 @@ const categories = ['cs.CL', 'cs.AI', 'cs.CL', 'CS.LG', 'cs.NE', 'stat.ML'];
 
 const main = async function(){
 
-  // const timeout = setTimeout(function(){
-  //   client.hmsetAsync('scrape_numbers', `${cat}:status`, 0);
-  //   throw new Error('timed out');
-  // }, 2 * 60000);
-
-  // sleep 10s
-
   for (var i = 0; i < 10000;){
 
+    // sleep 10s
     await new Promise((resolve, reject)=>{
       setTimeout(resolve, 10 * 1000);
     });
@@ -58,10 +48,6 @@ const main = async function(){
       console.log(err);
     }
   }
-
-  //  finally {
-  //   clearTimeout(timeout);
-  // }
 
 };
 
