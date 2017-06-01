@@ -1,5 +1,8 @@
 
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
+
+import mongoose from '../config/mongoose';
+
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 

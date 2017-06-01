@@ -72,7 +72,7 @@ class HomeContainer extends Component {
 
       if(!searched){
         return (
-          <div className="col-md-12" style={{
+          <div id="search_result_placeholder" className="col-xs-12" style={{
             // backgroundColor:'red',
             marginTop: '28px',
             display: 'flex',
@@ -86,7 +86,7 @@ class HomeContainer extends Component {
         );
       }
       return (
-        <div className="col-md-12" style={{
+        <div id="search_result_not_found" className="col-xs-12" style={{
           // backgroundColor:'red',
           marginTop: '28px',
           display: 'flex',
@@ -100,7 +100,7 @@ class HomeContainer extends Component {
       );
     }
 
-    return papers.map((paper,index)=>{
+    const papersComps = papers.map((paper,index)=>{
       // console.log(paper)
       return (
         <Cell
@@ -109,6 +109,12 @@ class HomeContainer extends Component {
         />
       );
     });
+
+    return (
+      <div id="search_results">
+        { papersComps }
+      </div>
+    );
   }
 
   inputOnChange(e){
@@ -131,12 +137,12 @@ class HomeContainer extends Component {
     const { searchPapers } = this.props.actions;
 
     return (
-      <div>
+      <div id="home_page" >
         <div className="container">
           <div className="input-group">
             <span className="input-group-addon" id="basic-addon1">🔍</span>
-            <input onKeyPress={this.onKeyPress.bind(this, {searchPapers})} ref={'search'} onChange={this.inputOnChange.bind(this)} type="text" className="form-control" placeholder="Search Keyword" aria-describedby="basic-addon1"></input>
-            <button onClick={this.submitOnClick.bind(this,{searchPapers})} type="submit" className="btn btn-primary">Search</button>
+            <input id="search_papers_input" onKeyPress={this.onKeyPress.bind(this, {searchPapers})} ref={'search'} onChange={this.inputOnChange.bind(this)} type="text" className="form-control" placeholder="Search Keyword" aria-describedby="basic-addon1"></input>
+            <button id="search_papers_button" onClick={this.submitOnClick.bind(this,{searchPapers})} type="submit" className="btn btn-primary">Search</button>
           </div>
           <br/>
           <div className="row">

@@ -13,7 +13,7 @@ export function signup({username, email, password, history}) {
     try {
       dispatch(showLoading());
       await user.signUp();
-      history.push('/home');
+      history.push('/');
     } catch (error){
       console.log({error});
       var errorMessage = 'Network Error';

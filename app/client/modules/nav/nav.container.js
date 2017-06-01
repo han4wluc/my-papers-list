@@ -66,7 +66,7 @@ class NavContainer extends Component {
   renderError({errorMessage, dismissError}){
     if(!errorMessage){ return null; }
     return (
-      <div className="container">
+      <div id="nav_error_bar" className="container">
         <div className="alert alert-danger" role="alert">
           <button onClick={dismissError} type="button" className="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -120,9 +120,6 @@ class NavContainer extends Component {
 
           { this.renderSuccess({successMessage,dismissSuccess}) }
           { this.renderError({errorMessage,dismissError}) }
-
-
-
 
         <div style={{
           position: 'fixed',

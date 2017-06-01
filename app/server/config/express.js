@@ -6,6 +6,15 @@ import fs from 'fs';
 import React from 'react';
 import _ from 'lodash';
 
+import routes from './routes';
+import { renderToString } from 'react-router-server';
+import App from '../../client/app';
+import { Provider } from 'react-redux';
+// import { ServerStateProvider } from 'react-router-server';
+import { Switch, Route, StaticRouter } from 'react-router';
+
+import initStore from '../../client/store';
+
 const app = express();
 const port = 8000;
 
@@ -27,22 +36,15 @@ app.all('*', function(req, res, next) {
   next();
 });
 
-require('./mongoose');
+const mongoose = require('./mongoose');
 require('../api')(app);
 require('../api/rest')(app);
 
-import routes from './routes';
 routes(app);
 
 
 // import { renderToString } from 'react-dom/server';
-import { renderToString } from 'react-router-server';
-import App from '../../client/app';
-import { Provider } from 'react-redux';
-// import { ServerStateProvider } from 'react-router-server';
-import { Switch, Route, StaticRouter } from 'react-router';
 
-import initStore from '../../client/store';
 // const initialEmptyState = _.cloneDeep(initStore.getState());
 
 // const replaceJs = process.env.NODE_ENV === 'production' ?
@@ -76,7 +78,11 @@ const serverRender = async function(req, res){
   app.get(routeName, serverRender);
 });
 
-
 const server = app.listen(port, () => {
   console.log(`express server listening at http://localhost:${port}`);
 });
+
+export {
+  mongoose,
+};
+

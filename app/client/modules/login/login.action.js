@@ -15,7 +15,7 @@ export function login({username, password, history}) {
       console.log({error});
       var errorMessage = 'Network Error';
       if(error.code === 210){
-        errorMessage = 'Wront password';
+        errorMessage = 'Wrong password';
       }
       if(error.code === 211){
         errorMessage = 'No such email registered';

@@ -24,19 +24,19 @@ class SignupContainer extends Component {
 
         <div className="form">
 
-          <input ref={"username"} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Username"/>
+          <input id="username_input" ref={"username"} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Username"/>
 
           <div className="input-group mb-2 mr-sm-2 mb-sm-0">
-            <input ref={"email"} type="email" className="form-control" id="inlineFormInputGroup" placeholder="E-mail"></input>
+            <input id="email_input" ref={"email"} type="email" className="form-control" placeholder="E-mail"></input>
           </div>
 
-          <input ref={"password"} type="password" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Password"/>
+          <input id="password_input" ref={"password"} type="password" className="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Password"/>
 
           <br/>
           <div className="row">            
             <div className="col-md-12">
               <Link to="/login">
-                <div>{'Click here to login if you already got an account'}</div>
+                <div id="login_link">{'Click here to login if you already got an account'}</div>
               </Link>
             </div>
           </div>
@@ -44,7 +44,7 @@ class SignupContainer extends Component {
 
           <div className="row">
             <div className="col-md-12">
-              <button onClick={this.signup.bind(this)} type="submit" className="btn btn-primary">{'Signup'}</button>
+              <button id="signup_button" onClick={this.signup.bind(this)} type="submit" className="btn btn-primary">{'Signup'}</button>
              </div>
           </div>
 

@@ -3,17 +3,26 @@ var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
 
+
+const entry = [path.resolve(__dirname, 'app/client/entry.js')];
+if(process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test'){
+  entry.push('webpack-dev-server/client?http://0.0.0.0:8080');
+  entry.push('webpack/hot/only-dev-server');
+}
+
+
 module.exports = {
 
-  entry: [
-    // 'react-hot-loader/patch', // RHL patch
-    // 'webpack-hot-middleware/client',
-    'webpack-dev-server/client?http://0.0.0.0:8080',
-    // 'webpack-dev-server/client?http://0.0.0.0:3000',
-    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-    // path.resolve(__dirname, 'app/client/app.js') // Your app's entry point
-    path.resolve(__dirname, 'app/client/entry.js') // Your app's entry point
-  ],
+  entry: entry,
+  // entry: [
+  //   // 'react-hot-loader/patch', // RHL patch
+  //   // 'webpack-hot-middleware/client',
+  //   'webpack-dev-server/client?http://0.0.0.0:8080',
+  //   // 'webpack-dev-server/client?http://0.0.0.0:3000',
+  //   'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+  //   // path.resolve(__dirname, 'app/client/app.js') // Your app's entry point
+  //   path.resolve(__dirname, 'app/client/entry.js') // Your app's entry point
+  // ],
   // entry: path.resolve(__dirname, 'app/client/index.js'),
 
   output: {

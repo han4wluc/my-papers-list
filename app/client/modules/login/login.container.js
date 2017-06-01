@@ -33,25 +33,25 @@ class LoginContainer extends Component {
       <div className="container">
         <h2> {'Login'} </h2>
         <div className="form">
-          <input ref={"username"} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Username"/>
-          <input ref={"password"} type="password" className="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Password"/>
+          <input id="username_input" ref={"username"} type="text" className="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Username"/>
+          <input id="password_input" ref={"password"} type="password" className="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Password"/>
           <br/>
           <div className="row">
             <div className="col-md-12">
               <Link to="/signup">
-                <div>{'Click here to signup if you don\'t have an account'}</div>
+                <div id="signup_link">{'Click here to signup if you don\'t have an account'}</div>
               </Link>
             </div>
             <div className="col-md-12">
               <Link to="/reqpass">
-                <div>{'Forgot Password?'}</div>
+                <div id="forgot_password_link">{'Forgot Password?'}</div>
               </Link>
             </div>
           </div>
           <br/>
           <div className="row">
             <div className="col-md-12">
-              <button onClick={this.login.bind(this)} type="submit" className="btn btn-primary">Login</button>
+              <button id="login_button" onClick={this.login.bind(this)} type="submit" className="btn btn-primary">Login</button>
             </div>
           </div>
         </div>

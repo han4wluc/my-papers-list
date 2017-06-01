@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./app/tests.js --timeout 1000000",
+    "test:e2e": "NODE_ENV=\"test\" npm run build:t && NODE_ENV=\"test\" mocha ./e2e/index.js --timeout 100000",
     "dev:c": "webpack-dev-server --config webpack.client.config.js --hot",
     "dev:s": "node app/server",
     "build:c": "webpack --optimize-minimize --define process.env.NODE_ENV=\"'production'\" --config webpack.client.config.js",
+    "build:t": "webpack --optimize-minimize --define process.env.NODE_ENV=\"'production'\" --define process.env.TEST_MODE=\"'true'\" --config webpack.client.config.js",
     "build:s": "webpack --optimize-minimize --define process.env.NODE_ENV=\"'production'\" --config webpack.server.config.js",
-    "prod:s": "node build/server.bundle.js"
+    "prod:s": "NODE_ENV=\"test\" npm run build:c && node app/server"
   },
-  "author": "",
+  "author": "han4wluc",
   "dependencies": {
     "argparse": "^1.0.9",
     "axios": "^0.16.0",
@@ -46,6 +48,7 @@
     "torest": "^0.0.2"
   },
   "devDependencies": {
+    "avoscloud-sdk": "^0.6.10",
     "babel-core": "^6.5.2",
     "babel-eslint": "^6.0.2",
     "babel-loader": "^6.2.3",
@@ -61,6 +64,7 @@
     "gulp": "^3.9.1",
     "gulp-mocha": "^2.2.0",
     "gulp-shell": "^0.5.2",
+    "leanengine": "^2.0.3",
     "react-addons-test-utils": "^15.0.2",
     "react-hot-loader": "^3.0.0-beta.7",
     "sinon": "^1.17.3",
