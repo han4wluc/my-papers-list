@@ -30,7 +30,7 @@ class NavContainer extends Component {
     return (
       <div className="mt-2 mt-md-0">
         <Link to="/login" >
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+          <button id="nav_login_button" className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
         </Link>
       </div>
     );
@@ -43,7 +43,7 @@ class NavContainer extends Component {
 
     return (
       <div className="form-inline mt-2 mt-md-0">
-        <Link style={{color:color}} to="/profile" >{username}</Link>
+        <Link id="nav_user_link" style={{color:color}} to="/profile" >{username}</Link>
       </div>
     );
 
@@ -99,18 +99,18 @@ class NavContainer extends Component {
              <span className="navbar-toggler-icon"></span>
           </button>   
 
-          <Link className="navbar-brand" to="/">
+          <Link id="nav_logo_link" className="navbar-brand" to="/">
             MyPaperList
           </Link>
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav mr-auto">
               <li className={'nav-item active'}>
-                <Link className="nav-link" to="/">{'Home'}</Link>
+                <Link id="nav_home_link" className="nav-link" to="/">{'Home'}</Link>
                 {/*<a className="nav-link" href="/home">Home <span className="sr-only">(current)</span></a>*/}
               </li>
 
               <li className={'nav-item'}>
-                <Link className="nav-link" to="/read">{'Read'}</Link>
+                <Link id="nav_read_link" className="nav-link" to="/read">{'Read'}</Link>
                 {/*<a className="nav-link" href="/read">Read</a>*/}
               </li>
             </ul>

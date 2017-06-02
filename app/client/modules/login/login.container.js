@@ -17,14 +17,10 @@ class LoginContainer extends Component {
   }
 
   render(){
-    console.log('aaaa')
-
     if(AV.User.current()){
-      console.log('already logged in');
       return (
         <Redirect to={{
           pathname: '/',
-          // state: { from: props.location }
         }}/>
       );
     }

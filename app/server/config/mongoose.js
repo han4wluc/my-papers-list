@@ -19,7 +19,7 @@ const main = async function(){
 
   mongoose.connection.once('open', () => {
     mongoose.connections.forEach((connection)=>{
-      console.log('mongoose connected to:', connection.host, connection.name)
+      console.log('mongoose connected to:', connection.host, connection.name);
     });
   });
   mongoose.connection.on('error', console.log);
