@@ -26,7 +26,7 @@ describe('test Login page', function() {
     var nightmare = Nightmare({ show: false, waitTimeout: 20000 });
     await nightmare
       .goto('http://localhost:8000/login')
-      .insert('#username_input', 'email2@email.com')
+      .insert('#username_input', 'user_2@email.com')
       .insert('#password_input', 'password')
       .click('#login_button')
       .wait('#home_page');

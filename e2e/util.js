@@ -1,5 +1,23 @@
 
 import mongoose from 'mongoose';
+import AV from 'leancloud-storage';
+
+
+const user_1 = function(){
+  const user = new AV.User();
+  user.setUsername('user_1');
+  user.setPassword('password');
+  user.setEmail('user_1@email.com');
+  return user;
+};
+
+const user_2 = function(){
+  const user = new AV.User();
+  user.setUsername('user_2');
+  user.setPassword('password');
+  user.setEmail('user_2@email.com');
+  return user;
+};
 
 const genData = function(){
   return [{
@@ -54,5 +72,6 @@ const genData = function(){
 };
 
 export {
-  genData
+  genData,
+  user_1,
 };

@@ -16,11 +16,11 @@ before(async function(done){
       await app.mongoose.default.models.Paper.insertMany(Util.genData());
       const query = new AV.Query('_User');
       await query.destroyAll();
-      var user = new AV.User();
-      user.setUsername('username');
-      user.setPassword('password');
-      user.setEmail('email2@email.com');
-      await user.signUp();
+      // var user = new AV.User();
+      // user.setUsername('username');
+      // user.setPassword('password');
+      // user.setEmail('email2@email.com');
+      await Util.user_1().signUp();
       AV.User.logOut();
       done();
     } catch (error){
@@ -39,6 +39,9 @@ after(async function(){
   await query.destroyAll();
 });
 
-require('./home');
-require('./login');
-require('./signup');
+
+
+require('./nav');
+// require('./home');
+// require('./login');
+// require('./signup');

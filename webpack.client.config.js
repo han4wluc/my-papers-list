@@ -10,6 +10,8 @@ if(process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test'){
   entry.push('webpack/hot/only-dev-server');
 }
 
+// Hot Module Reloading
+// https://gaearon.github.io/react-hot-loader/getstarted
 
 module.exports = {
 

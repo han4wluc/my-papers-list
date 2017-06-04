@@ -6,6 +6,7 @@ const main = async function(){
   if(process.env.NODE_ENV === 'test'){
     var Mongoose = require('mongoose').Mongoose;
     mongoose = new Mongoose();
+    mongoose.Promise = Promise;
     var Mockgoose = require('mockgoose').Mockgoose;
     var mockgoose = new Mockgoose(mongoose);
 
@@ -14,6 +15,7 @@ const main = async function(){
 
   } else {
     mongoose = require('mongoose');
+    mongoose.Promise = Promise;
     mongoose.connect('mongodb://mpl:afh111LqteEk77juxz7ipduMbMgq5RbqyWG8JXTBcBQ7DZA0941@47.52.57.206:27017/mpl');
   }
 

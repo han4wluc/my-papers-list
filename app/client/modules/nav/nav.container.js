@@ -85,6 +85,9 @@ class NavContainer extends Component {
     // const pathname = this.props.location.pathname;
 
     const user = AV.User.current();
+
+    console.log('user', !!user);
+
     let userComp = this.renderButton();
     if(user){
       userComp = this.renderUsername({username:user.getUsername()});

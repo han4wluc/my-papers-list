@@ -13,15 +13,11 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 const Nav = containers['nav'];
 
-
-
-
-
 const loginRequired = function(Comp){
   if(!AV.User.current()){
     return (
       <Redirect to={{
-        pathname: '/',
+        pathname: '/login',
       }}/>
     );
   }

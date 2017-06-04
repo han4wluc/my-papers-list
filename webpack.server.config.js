@@ -12,7 +12,7 @@ module.exports = {
 
   target: 'node',
 
-  //keep nod_module paths ouf of the bundle
+  //keep node_module paths ouf of the bundle
   externals: fs.readdirSync(path.resolve(__dirname, 'node_modules')).concat([
     'react-dom/server'
   ]).reduce(function (ext, mod) {

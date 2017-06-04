@@ -1,0 +1,1 @@
+ssh root@47.52.57.206 docker restart mpl
